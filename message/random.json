@@ -1,0 +1,26 @@
+{
+    "apa": [
+        "Ya",
+        "Mungkin",
+        "Bisa jadi",
+        "Ulangi",
+        "Tidak",
+        "Aku tidak mengerti"
+    ],
+    "kapan": [
+        "1 tahun lagi",
+        "2 tahun lagi",
+        "3 tahun lagi",
+        "1/2 tahun lagi",
+        "1 bulan lagi",
+        "2 bulan lagi",
+        "3 bulan lagi",
+        "1 minggu lagi",
+        "2 minggu lagi",
+        "1 hari lagi",
+        "2 hari lagi",
+        "3 hari lagi",
+        "kurang dari 24 jam",
+        "8 jam lagi"
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "ownerNumber": "6285158549166@s.whatsapp.net",
+    "limitCount": 30,
+    "gamewaktu": 60,
+    "botName": "Xinz Bot",
+    "pathImg": "./media/Itsuki.jpg",
+    "lolkey": "YOUR_APIKEY",
+    "sesidInsta": "default",
+    "sessionName": "aqulzz",
+    "gcount": {
+        "prem": 40,
+        "user": 20
+    },
+    "emote":{
+        "free": "◽",
+        "owner": "◾",
+        "limit": "🔸",
+        "glimit": "🔹",
+        "prem": "💰"
+    }
+}
