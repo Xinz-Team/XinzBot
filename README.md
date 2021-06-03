@@ -76,6 +76,7 @@ node main
 - Change limit game on [this section](https://github.com/Xinz-Team/XinzBot/blob/df8c08093bfd6133745ff69525d704cebbb920f5/config.json#L10)
 - Change botName on [this section](https://github.com/Xinz-Team/XinzBot/blob/df8c08093bfd6133745ff69525d704cebbb920f5/config.json#L5)
 - Change lolkey on [this section](https://github.com/Xinz-Team/XinzBot/blob/df8c08093bfd6133745ff69525d704cebbb920f5/config.json#L7)
+- You can add fiture on [this section](https://github.com/Xinz-Team/XinzBot/blob/main/message/xinz.js)
 
 
 ## Installing the FFmpeg for Windows
