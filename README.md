@@ -14,12 +14,6 @@
 <a href="https://github.com/zennn08/megumikato2/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/zennn08/ElainaBOT?label=Watchers&color=blue&style=flat-square"></a>
 </p>
 
-# XinzBot
-
->
->
->
-
 <p align="center">
   <a href="https://github.com/Xinz-Team/XinzBot#requirements">Requirements</a> •
   <a href="https://github.com/Xinz-Team/XinzBot#instalasi">Installation</a> •
@@ -119,7 +113,8 @@ webpmux -version
 
 # Thanks to
 * [`Baileys`](https://github.com/adiwajshing/Baileys)
-* [`Xinz-Team](https://github.com/Xinz-Team)
+* [`Xinz-Team`](https://github.com/Xinz-Team)
+* [`Nurutomo`](https://github.com/Nurutomo)
 * [`MhankBarBar`](https://github.com/MhankBarBar)
 * [`MRHRTZ`](https://github.com/MRHRTZ)
 * [`Mamet`](https://github.com/mamet8/)
