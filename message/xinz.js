@@ -728,7 +728,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 break
             case prefix+'owner':
             case prefix+'creator':
-                xinz.sendContact(from, ownerNumber.split("@")[0], 'aqulzz', msg)
+                xinz.sendContact(from, ownerNumber.split("@")[0], setting.ownerName, msg)
                 .then((res) => xinz.sendMessage(from, 'Nih kontak ownerku', text, {quoted: res}))
                 break
             case prefix+'ping':
@@ -738,18 +738,8 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 textImg(`${latensi.toFixed(4)} Second`)
             }
                 break
-            case prefix+'donate': case prefix+'donasi':{
-                let txt = `GOPAY : 085157226383\nTrakteer : https://trakteer.id/aqulzz\nSaweeria : https://saweria.co/aqulzz\nPulsa : 085157226383`
-                var anoim = {
-                    detectLinks: false
-                }
-                var qul = await xinz.generateLinkPreview(txt)
-                qul.title = `MAU DONASI BANG?`
-                qul.description = `DONASI LAH BANG, NTAR DUIT SAYA NAMBAH`
-                qul.jpegThumbnail = fs.readFileSync(setting.pathImg)
-                qul.canonicaUrl = `https://donasi.com`
-                xinz.sendMessage(from, qul, MessageType.extendedText, anoim)
-            }
+            case prefix+'donate': case prefix+'donasi':
+                textImg(setting.txtDonasi)
                 break
             case prefix+'sourcecode': case prefix+'sc': case prefix+'src':
                 textImg(`Bot ini menggunakan sc : https://github.com/Xinz-Team/XinzBot`)
@@ -1495,7 +1485,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (!isGroup) return reply(mess.OnlyGrup)
                 if (!isGroupAdmins && !isOwner)return reply(mess.GrupAdmin)
                 if (!isBotGroupAdmins) return reply(mess.BotAdmin)
-                xinz.groupSettingChange(from, "announcement", true)
+                xinz.groupSettingChange(from, "announcement", false)
                 .then((res) => reply(jsonformat(res)))
                 .catch((err) => reply(jsonformat(err)))
                 break
@@ -1503,7 +1493,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (!isGroup) return reply(mess.OnlyGrup)
                 if (!isGroupAdmins && !isOwner)return reply(mess.GrupAdmin)
                 if (!isBotGroupAdmins) return reply(mess.BotAdmin)
-                xinz.groupSettingChange(from, "announcement", false)
+                xinz.groupSettingChange(from, "announcement", true)
                 .then((res) => reply(jsonformat(res)))
                 .catch((err) => reply(jsonformat(err)))
                 break
