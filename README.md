@@ -9,9 +9,9 @@
 </p>
 <p align="center">
 <a href="https://github.com/zennn08/followers"><img title="Followers" src="https://img.shields.io/github/followers/zennn08?color=blue&style=flat-square"></a>
-<a href="https://github.com/zennn08/megumikato2/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/zennn08/ElainaBOT?color=red&style=flat-square"></a>
-<a href="https://github.com/zennn08/megumikato2/network/members"><img title="Forks" src="https://img.shields.io/github/forks/zennn08/ElainaBOT?color=red&style=flat-square"></a>
-<a href="https://github.com/zennn08/megumikato2/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/zennn08/ElainaBOT?label=Watchers&color=blue&style=flat-square"></a>
+<a href="https://github.com/zennn08/megumikato2/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Xinz-Team/XinzBot?color=red&style=flat-square"></a>
+<a href="https://github.com/zennn08/megumikato2/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Xinz-Team/XinzBot?color=red&style=flat-square"></a>
+<a href="https://github.com/zennn08/megumikato2/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Xinz-Team/XinzBot?label=Watchers&color=blue&style=flat-square"></a>
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@
 # Instalasi
 ## For Windows
 ```bash
-git clone https://github.com/Xinz-Team/XInzBot.git
+git clone https://github.com/Xinz-Team/XinzBot.git
 cd XinzBot
 npm install
 node main
@@ -48,7 +48,7 @@ node main
 termux-setup-storage
 apt update && apt upgrade
 pkg install nodejs git ffmpeg libwebp imagemagick
-git clone https://github.com/Xinz-Team/XInzBot.git
+git clone https://github.com/Xinz-Team/XinzBot.git
 cd XinzBot
 npm install
 node main
@@ -57,7 +57,7 @@ node main
 ## For VPS
 ```bash
 apt install nodejs git ffmpeg libwebp imagemagick
-git clone https://github.com/Xinz-Team/XInzBot.git
+git clone https://github.com/Xinz-Team/XinzBot.git
 cd XinzBot
 npm install
 node main
