@@ -31,6 +31,7 @@ ${i.limit} ${prefix}ytmp4 url
 ${i.limit} ${prefix}ytmp3 url
 ${i.limit} ${prefix}igdl url
 ${i.limit} ${prefix}fbdl url
+${i.limit} ${prefix}tiktok url
 ${i.limit} ${prefix}yts query
 ${i.limit} ${prefix}play query
 ${i.limit} ${prefix}playmp4 query
