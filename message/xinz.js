@@ -707,17 +707,25 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 if (isNaN(q.split("|")[0])) return reply(`Penggunaan ${command} nomor|nama`)
                 xinz.sendContact(from, q.split("|")[0], q.split("|")[1], msg)
                 break
-            case prefix+'hidetag':{
+                     case prefix+'hidetag':{
                 if (!isPremium) return reply(`Kamu bukan user premium, kirim perintah *${prefix}daftarprem* untuk membeli premium`)
                 if (args.length < 2) return reply(`Masukkan text`)
-                let arr = [];
-                for (let i of groupMembers){
-                    txti += `=> @${i.jid.split("@")[0]}\n`
-                    arr.push(i.jid)
-                }
-                mentions(q, arr, false)
-            }
-                break
+                if (!isGroup) return reply(mess.OnlyGrup)
+					var group = await xinz.groupMetadata(from)
+					var member = group['participants']
+					var mem = []
+					member.map( async adm => {
+					mem.push(adm.id.replace('c.us', 's.whatsapp.net'))
+					})
+					var options = {
+					text: q,
+					contextInfo: { mentionedJid: mem },
+					quoted: msg
+					}
+					xinz.sendMessage(from, options, text)
+					}
+					break
+
 //------------------< INFO >-------------------
             case prefix+'limit': case prefix+'ceklimit': case prefix+'balance': case prefix+'glimit':
                 if (mentioned.length !== 0){
@@ -1057,6 +1065,24 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 })
             }
                 break
+			            case prefix+'tiktok':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length < 2) return reply(`Kirim perintah *${prefix}ig* link ig`)
+                if (!isUrl(args[1]) && !args[1].includes('vt.tiktok.com')) return reply(mess.error.Iv)
+                reply(mess.wait)
+                axios.get(`https://api.lolhuman.xyz/api/tiktok3?apikey=${lolkey}&url=${args[1]}`)
+                .then(res => res.data)
+                .then(res =>
+                sendFileFromUrl(from, res.result, '', msg)
+                )
+                                .catch((err) => {
+                    sendMess(ownerNumber, 'TIKTOK Download Error : ' + err)
+                    console.log(color('[TIKTOK Download]', 'red'), err)
+                    reply(mess.error.api)
+                })
+                            limitAdd(sender, limit)
+                            }
+                            break
 //------------------< Stalker >-------------------
             case prefix+'igstalk': case prefix+'stalkig':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
