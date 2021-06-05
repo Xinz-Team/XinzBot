@@ -712,7 +712,6 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 if (args.length < 2) return reply(`Masukkan text`)
                 let arr = [];
                 for (let i of groupMembers){
-                    txti += `=> @${i.jid.split("@")[0]}\n`
                     arr.push(i.jid)
                 }
                 mentions(q, arr, false)
