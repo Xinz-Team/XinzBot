@@ -18,6 +18,7 @@ ${i.limit} ${prefix}sticker
 ${i.prem} ${prefix}swm
 ${i.prem} ${prefix}take
 ${i.limit} ${prefix}toimg
+${i.limit} ${prefix}ttp text
 ${i.limit} ${prefix}attp text
 ${i.limit} ${prefix}tinyurl url
 ${i.limit} ${prefix}nuliskiri text
@@ -31,6 +32,7 @@ ${i.limit} ${prefix}ytmp4 url
 ${i.limit} ${prefix}ytmp3 url
 ${i.limit} ${prefix}igdl url
 ${i.limit} ${prefix}fbdl url
+${i.limit} ${prefix}tiktok url
 ${i.limit} ${prefix}yts query
 ${i.limit} ${prefix}play query
 ${i.limit} ${prefix}playmp4 query
@@ -44,11 +46,16 @@ ${i.limit} ${prefix}blackpink text
 ${i.limit} ${prefix}tahta text
 ${i.limit} ${prefix}neon text
 ${i.limit} ${prefix}glitch text1|text2
+${i.limit} ${prefix}thundername text
+${i.limit} ${prefix}pornhub text1|text2
 
 *Baileys*
 ${i.free} ${prefix}tagme
 ${i.limit} ${prefix}kontak nomor|nama
 ${i.prem} ${prefix}hidetag
+${i.free} ${prefix}jadian
+${i.free} ${prefix}ganteng
+${i.free} ${prefix}cantik
 
 *Premium*
 ${i.owner} ${prefix}addprem @tag
@@ -65,6 +72,25 @@ ${i.free} ${prefix}listban
 ${i.glimit} ${prefix}tictactoe @tag
 ${i.glimit} ${prefix}tebakgambar
 ${i.glimit} ${prefix}family100
+
+*VVIBU*
+${i.limit} ${prefix}waifu
+${i.limit} ${prefix}loli
+${i.limit} ${prefix}nekonime
+${i.limit} ${prefix}megumin
+${i.limit} ${prefix}sagiri
+${i.limit} ${prefix}shinobu
+
+*Random*
+${i.free} ${prefix}apakah
+${i.free} ${prefix}bisakah
+${i.free} ${prefix}kapankah
+${i.free} ${prefix}hobby
+${i.free} ${prefix}rate
+${i.free} ${prefix}cekbapak
+${i.free} ${prefix}seberapagay
+${i.limit} ${prefix}truth
+${i.limit} ${prefix}dare
 
 *Group*
 ${i.free} ${prefix}afk
