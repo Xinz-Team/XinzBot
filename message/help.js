@@ -128,6 +128,7 @@ ${i.owner} >
 ${i.owner} $
 ${i.owner} ${prefix}setprefix
 ${i.owner} ${prefix}bc
+${i.owner} ${prefix}clearall
 ${i.owner} ${prefix}exif nama|author
 
 Note :
