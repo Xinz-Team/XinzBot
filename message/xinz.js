@@ -506,6 +506,41 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 })
             }
                 break
+	case prefix+'ttp':
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length < 2) return reply(`Penggunaan ${command} text`)
+                fs.writeFileSync("./sticker/" + sender + "ttp.png", text2png(q, {
+                    color: 'white',
+                    font: '200px futura',
+                    padding: 20,
+                    lineSpacing: 60,
+                    textAlign: 'center',
+                    strokeWidth: 15
+                }))
+                await ffmpeg("./sticker/" + sender + "ttp.png")
+                .input("./sticker/" + sender + "ttp.png")
+                .on('start', function (cmd) {
+                    console.log(`Started : ${cmd}`)
+                })
+                .on('error', function (err) {
+                    console.log(`Error : ${err}`)
+                    fs.unlinkSync("./sticker/" + sender + "ttp.png")
+                    reply(mess.error.api)
+                })
+                .on('end', function () {
+                    console.log('Finish')
+                    exec(`webpmux -set exif ./sticker/data.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
+                        if (error) return reply(mess.error.api)
+                        xinz.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: msg})
+                        limitAdd(sender, limit)
+                        fs.unlinkSync("./sticker/" + sender + "ttp.png")	
+                        fs.unlinkSync(`./sticker/${sender}.webp`)	
+                    })
+                })
+                .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+                .toFormat('webp')
+                .save(`./sticker/${sender}.webp`)
+                break
             case prefix+'translate': case prefix+'tr':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (args.length < 2) return reply(`Penggunaan :\n*${prefix}translate* kodebahasa teks\n*${prefix}translate* kodebahasa <reply message>`)
@@ -694,9 +729,110 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 xinz.sendImage(from, await getBuffer(`https://api.lolhuman.xyz/api/hartatahta?apikey=${lolkey}&text=${q}`), '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
                 break
+	case prefix+'thundername': case prefix+'thunder':
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length < 2) return reply(`Penggunaan ${command} text`)
+                reply(mess.wait)
+                sendFileFromUrl(from, `https://api.lolhuman.xyz/api/textprome/thunder?apikey=${lolkey}&text=${q}`, '', msg).catch(() => reply(mess.error.api))
+                limitAdd(sender, limit)
+                break
+            case prefix+'pornhub': case prefix+'phlogo':
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length < 2) return reply(`Penggunaan ${command} text1|text2`)
+                if (!q.includes("|")) return reply(`Penggunaan ${command} text1|text2`)
+                reply(mess.wait)
+                sendFileFromUrl(from, `https://api.lolhuman.xyz/api/textprome2/pornhub?apikey=${lolkey}&text1=${q.split("|")[0]}&text2=${q.split("|")[1]}`, '', msg).catch(() => reply(mess.error.api))
+                limitAdd(sender, limit)
+                break
 //------------------< Math Random >-------------------
             case prefix+'':
                 break
+				case prefix+'ganteng':
+					if (!isGroup)return reply(mess.OnlyGrup)
+					var kamu = groupMembers
+					var cinta = groupMembers
+					var aku = cinta[Math.floor(Math.random() * kamu.length)]
+					var cintax = kamu[Math.floor(Math.random() * cinta.length)]
+					let tejs = `Cowok paling ganteng di group ini adalah\n*@${aku.jid.split('@')[0]}*`
+					mentions(tejs, [aku.jid, cintax.jid], true)
+					break
+				case prefix+'cantik':
+					if (!isGroup)return reply(mess.OnlyGrup)
+					var kamu = groupMembers
+					var cinta = groupMembers
+					var aku = cinta[Math.floor(Math.random() * kamu.length)]
+					var cintax = kamu[Math.floor(Math.random() * cinta.length)]
+					let gejs = `Cewek️ paling cantik di group ini adalah\n*@${cintax.jid.split('@')[0]}*`
+					mentions(gejs, [aku.jid, cintax.jid], true)
+					break
+					case prefix+'jadian':
+					if (!isGroup)return reply(mess.OnlyGrup)
+					var kamu = groupMembers
+					var cinta = groupMembers
+					var aku = cinta[Math.floor(Math.random() * kamu.length)]
+					var cintax = kamu[Math.floor(Math.random() * cinta.length)]
+					let vejs = `Ciee.. yang lagi jadian\n*@${aku.jid.split('@')[0]}* ♥️ @${cintax.jid.split('@')[0]}\nSemoga Langgeng Hii`
+					mentions(vejs, [aku.jid, cintax.jid], true)
+					break
+				case prefix+'seberapagay':
+				axios.get(`https://arugaz.herokuapp.com/api/howgay`).then(res => res.data).then(res =>
+				textImg(`Nih Liat Data Gay Si ${q}
+
+Persentase Gay : ${res.persen}%
+Alert!!! : ${res.desc}`))
+				break
+				case prefix+'bisakah':
+					const bisa = ['Tentu Saja Bisa! Kamu Adalah Orang Paling Homky', 'Gak Bisa Ajg Aowkwowk', 'Hmm Gua Gak Tau Yaa, tanya ama bapakau', 'Ulangi Tod Gua Ga Paham']
+					const keh = bisa[Math.floor(Math.random() * bisa.length)]
+					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + keh, text, { quoted: msg })
+					break
+					case prefix+'kapankah':
+					const kapan = ['Besok', 'Lusa', 'Tadi', '4 Hari Lagi', '5 Hari Lagi', '6 Hari Lagi', '1 Minggu Lagi', '2 Minggu Lagi', '3 Minggu Lagi', '1 Bulan Lagi', '2 Bulan Lagi', '3 Bulan Lagi', '4 Bulan Lagi', '5 Bulan Lagi', '6 Bulan Lagi', '1 Tahun Lagi', '2 Tahun Lagi', '3 Tahun Lagi', '4 Tahun Lagi', '5 Tahun Lagi', '6 Tahun Lagi', '1 Abad lagi', '3 Hari Lagi']
+					const koh = kapan[Math.floor(Math.random() * kapan.length)]
+					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + koh, text, { quoted: msg })
+					break
+
+				case prefix+'apakah':
+					const apa = ['Iya', 'Tidak', 'Bisa Jadi', 'Ulangi bro gak paham']
+					const kah = apa[Math.floor(Math.random() * apa.length)]
+					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + kah, text, { quoted: msg })
+					break
+
+				case prefix+'rate':
+					if (isBanned) return reply(nad.baned())
+					if (!isRegistered) return reply(nad.noregis())
+					const ra = ['4', '9', '17', '28', '34', '48', '59', '62', '74', '83', '97', '100', '29', '94', '75', '82', '41', '39']
+					const te = ra[Math.floor(Math.random() * ra.length)]
+					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + te + '%', text, { quoted: msg })
+					break
+
+				case prefix+'hobby':
+					const hob = ['Desah Di Game', 'Ngocokin Doi', 'Stalking sosmed nya mantan', 'Kau kan gak punya hobby awokawok', 'Memasak', 'Membantu Atok', 'Mabar', 'Nobar', 'Sosmedtan', 'Membantu Orang lain', 'Nonton Anime', 'Nonton Drakor', 'Naik Motor', 'Nyanyi', 'Menari', 'Bertumbuk', 'Menggambar', 'Foto fotoan Ga jelas', 'Maen Game', 'Berbicara Sendiri']
+					const by = hob[Math.floor(Math.random() * hob.length)]
+					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + by, text, { quoted: msg })
+					break
+
+				case prefix+'truth':
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+					const trut = ['Pernah suka sama siapa aja? berapa lama?', 'Kalau boleh atau kalau mau, di gc/luar gc siapa yang akan kamu jadikan sahabat?(boleh beda/sma jenis)', 'apa ketakutan terbesar kamu?', 'pernah suka sama orang dan merasa orang itu suka sama kamu juga?', 'Siapa nama mantan pacar teman mu yang pernah kamu sukai diam diam?', 'pernah gak nyuri uang nyokap atau bokap? Alesanya?', 'hal yang bikin seneng pas lu lagi sedih apa', 'pernah cinta bertepuk sebelah tangan? kalo pernah sama siapa? rasanya gimana brou?', 'pernah jadi selingkuhan orang?', 'hal yang paling ditakutin', 'siapa orang yang paling berpengaruh kepada kehidupanmu', 'hal membanggakan apa yang kamu dapatkan di tahun ini', 'siapa orang yang bisa membuatmu sange', 'siapa orang yang pernah buatmu sange', '(bgi yg muslim) pernah ga solat seharian?', 'Siapa yang paling mendekati tipe pasangan idealmu di sini', 'suka mabar(main bareng)sama siapa?', 'pernah nolak orang? alasannya kenapa?', 'Sebutkan kejadian yang bikin kamu sakit hati yang masih di inget', 'pencapaian yang udah didapet apa aja ditahun ini?', 'kebiasaan terburuk lo pas di sekolah apa?']
+					const ttrth = trut[Math.floor(Math.random() * trut.length)]
+					truteh = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
+					xinz.sendMessage(from, truteh, image, { caption: 'Truth\n\n' + ttrth, quoted: msg })
+					break
+
+				case prefix+'dare':
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+					const dare = ['Kirim pesan ke mantan kamu dan bilang "aku masih suka sama kamu', 'telfon crush/pacar sekarang dan ss ke pemain', 'pap ke salah satu anggota grup', 'Bilang "KAMU CANTIK BANGET NGGAK BOHONG" ke cowo', 'ss recent call whatsapp', 'drop emot 🤥 setiap ngetik di gc/pc selama 1 hari', 'kirim voice note bilang can i call u baby?', 'drop kutipan lagu/quote, terus tag member yang cocok buat kutipan itu', 'pake foto sule sampe 3 hari', 'ketik pake bahasa daerah 24 jam', 'ganti nama menjadi "gue anak lucinta luna" selama 5 jam', 'chat ke kontak wa urutan sesuai %batre kamu, terus bilang ke dia "i lucky to hv you', 'prank chat mantan dan bilang " i love u, pgn balikan', 'record voice baca surah al-kautsar', 'bilang "i hv crush on you, mau jadi pacarku gak?" ke lawan jenis yang terakhir bgt kamu chat (serah di wa/tele), tunggu dia bales, kalo udah ss drop ke sini', 'sebutkan tipe pacar mu!', 'snap/post foto pacar/crush', 'teriak gajelas lalu kirim pake vn kesini', 'pap mukamu lalu kirim ke salah satu temanmu', 'kirim fotomu dengan caption, aku anak pungut', 'teriak pake kata kasar sambil vn trus kirim kesini', 'teriak " anjimm gabutt anjimmm " di depan rumah mu', 'ganti nama jadi " BOWO " selama 24 jam', 'Pura pura kerasukan, contoh : kerasukan maung, kerasukan belalang, kerasukan kulkas, dll']
+					const der = dare[Math.floor(Math.random() * dare.length)]
+					tod = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
+					xinz.sendMessage(from, tod, image, { quoted: msg, caption: 'Dare\n\n' + der })
+					break
+
+				case prefix+'cekbapak': // By Ramlan ID
+					const bapak = ['Wah Mantap Lu Masih Punya Bapack\nPasti Bapack Nya Kuli :v\nAwowkwokwwok\n#CandabOs', 'Aowkwwo Disini Ada Yteam :v\nLu Yteam Bro? Awowkwowk\nSabar Bro Ga Punya Bapack\n#Camda', 'Bjir Bapack Mu Ternyata Sudah Cemrai\nSedih Bro Gua Liatnya\nTapi Nih Tapi :v\nTetep Ae Lu Yteam Aowkwowkw Ngakak :v', 'Jangan #cekbapak Mulu Broo :v\nKasian Yang Yteam\nNtar Tersinggung Kan\nYahahaha Hayyuk By : Ramlan ID']
+					const cek = bapak[Math.floor(Math.random() * bapak.length)]
+					xinz.sendMessage(from, cek, text, { quoted: msg })
+					break
 //------------------< Baileys >---------------------
             case prefix+'tagme':
                 mentions(`@${sender.split("@")[0]}`, [sender], true)
@@ -1056,6 +1192,40 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 })
             }
                 break
+	case prefix+'tiktok': {
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length < 2) return reply(`Penggunaan ${command} link tiktok`)
+                if (!isUrl(args[1]) && !args[1].includes('tiktok.com')) return reply(mess.error.Iv)
+                reply(mess.wait)
+                axios.get(`https://api.lolhuman.xyz/api/tiktok?apikey=${lolkey}&url=${args[1]}`)
+                .then(({data}) => {
+                    let { title, thumbnail, description, duration, link } = data.result
+                    let capt = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
+┆ TIKTOK NOWM DOWNLOADER
+└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
+
+Data Berhasil Didapatkan!
+\`\`\`▢ Title : ${title}\`\`\`
+\`\`\`▢ Ext : MP4\`\`\`
+\`\`\`▢ Username / Nickname : ${data.result.author.username} / ${data.result.author.nickname}\`\`\`
+\`\`\`▢ Duration : ${duration}\`\`\`
+\`\`\`▢ LikeCount : ${data.result.statistic.diggCount}\`\`\`
+\`\`\`▢ ShareCount : ${data.result.statistic.shareCount}\`\`\`
+\`\`\`▢ CommentCount : ${data.result.statistic.commentCount}\`\`\`
+\`\`\`▢ PlayCount : ${data.result.statistic.playCount}\`\`\`
+\`\`\`▢ Descripttion : ${description}\`\`\`
+`
+                    sendFileFromUrl(from, thumbnail, capt, msg)
+                    sendFileFromUrl(from, link, '', msg)
+                    limitAdd(sender, limit)
+                })
+                    .catch((err) => {
+                        sendMess(ownerNumber, 'TiktokWM Error : ' + err)
+                        console.log(color('[TiktokWM]', 'red'), err)
+                        reply(mess.error.api)
+                    })
+            }
+                break
 //------------------< Stalker >-------------------
             case prefix+'igstalk': case prefix+'stalkig':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
@@ -1125,6 +1295,79 @@ _Harap tunggu sebentar, media akan segera dikirim_`
 					reply(mess.error.api)
                 })
             }
+                break
+//------------------< VVIBU >-------------------
+			case prefix+'waifu':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                reply(mess.wait)
+						axios.get('https://waifu.pics/api/sfw/waifu')
+						.then(res => res.data)
+						.then(res =>
+						sendFileFromUrl(from, res.url, 'NIH', msg)
+						)					
+                        .catch((err) => {
+                    console.log(color('[Vvibu]', 'red'), err)
+                    reply(mess.error.api)
+                })
+                            limitAdd(sender, limit)
+                            }
+                            break
+			case prefix+'nekonime':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                reply(mess.wait)
+						axios.get('https://waifu.pics/api/sfw/neko')
+						.then(res => res.data)
+						.then(res =>
+						sendFileFromUrl(from, res.url, 'NIH', msg)
+						)					
+                        .catch((err) => {
+                    console.log(color('[Vvibu]', 'red'), err)
+                    reply(mess.error.api)
+                })
+                            limitAdd(sender, limit)
+                            }
+                            break
+			case prefix+'megumin':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                reply(mess.wait)
+						axios.get('https://waifu.pics/api/sfw/megumin')
+						.then(res => res.data)
+						.then(res =>
+						sendFileFromUrl(from, res.url, 'NIH', msg)
+						)					
+                        .catch((err) => {
+                    console.log(color('[Vvibu]', 'red'), err)
+                    reply(mess.error.api)
+                })
+                            limitAdd(sender, limit)
+                            }
+                            break
+			case prefix+'shinobu':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                reply(mess.wait)
+						axios.get('https://waifu.pics/api/sfw/shinobu')
+						.then(res => res.data)
+						.then(res =>
+						sendFileFromUrl(from, res.url, 'NIH', msg)
+						)					
+                        .catch((err) => {
+                    console.log(color('[Vvibu]', 'red'), err)
+                    reply(mess.error.api)
+                })
+                            limitAdd(sender, limit)
+                            }
+                            break
+            case prefix+'loli':
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                reply(mess.wait)
+                sendFileFromUrl(from, `https://api.lolhuman.xyz/api/random/loli?apikey=${lolkey}`, '', msg).catch(() => reply(mess.error.api))
+                limitAdd(sender, limit)
+                break
+            case prefix+'sagiri':
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                reply(mess.wait)
+                sendFileFromUrl(from, `https://api.lolhuman.xyz/api/random/sagiri?apikey=${lolkey}`, '', msg).catch(() => reply(mess.error.api))
+                limitAdd(sender, limit)
                 break
 //------------------< Premium >-------------------
             case prefix+'addprem':
