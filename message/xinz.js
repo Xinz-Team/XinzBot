@@ -41,7 +41,6 @@ const tictac = require("../lib/tictac");
 const { yta, ytv } = require("../lib/ytdl");
 const { getUser, getPost, searchUser } = require('../lib/instagram');
 const { fbdl } = require("../lib/fbdl");
-const { menu } = require("./help");
 const { fakeStatus, fakeToko } = require("./fakeReply");
 const game = require("../lib/game");
 const { addBadword, delBadword, isKasar, addCountKasar, isCountKasar, delCountKasar } = require("../lib/badword");
@@ -83,6 +82,7 @@ moment.tz.setDefault("Asia/Jakarta").locale("id");
 
 module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
     try {
+        const { menu } = require("./help");
         const { type, quotedMsg, isGroup, isQuotedMsg, mentioned, sender, from, fromMe, pushname, chats } = msg
         if (fromMe) return
         const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
@@ -137,6 +137,9 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
         }
         function randomNomor(angka){
             return Math.floor(Math.random() * angka) + 1
+        }
+        const nebal = (angka) => {
+            return Math.floor(angka)
         }
         const reply = (teks) => {
             return xinz.sendMessage(from, teks, text, {quoted:msg})
@@ -506,71 +509,6 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 })
             }
                 break
-	case prefix+'ttp':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan ${command} text`)
-                fs.writeFileSync("./sticker/" + sender + "ttp.png", text2png(q, {
-                    color: 'white',
-                    font: '200px futura',
-                    padding: 20,
-                    lineSpacing: 60,
-                    textAlign: 'center',
-                    strokeWidth: 15
-                }))
-                await ffmpeg("./sticker/" + sender + "ttp.png")
-                .input("./sticker/" + sender + "ttp.png")
-                .on('start', function (cmd) {
-                    console.log(`Started : ${cmd}`)
-                })
-                .on('error', function (err) {
-                    console.log(`Error : ${err}`)
-                    fs.unlinkSync("./sticker/" + sender + "ttp.png")
-                    reply(mess.error.api)
-                })
-                .on('end', function () {
-                    console.log('Finish')
-                    exec(`webpmux -set exif ./sticker/data.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-                        if (error) return reply(mess.error.api)
-                        xinz.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: msg})
-                        limitAdd(sender, limit)
-                        fs.unlinkSync("./sticker/" + sender + "ttp.png")	
-                        fs.unlinkSync(`./sticker/${sender}.webp`)	
-                    })
-                })
-                .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-                .toFormat('webp')
-                .save(`./sticker/${sender}.webp`)
-                break
-            case prefix+'translate': case prefix+'tr':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}translate* kodebahasa teks\n*${prefix}translate* kodebahasa <reply message>`)
-                if (isQuotedMsg){
-                    let bahasanya = args[1].toString()
-                    const trans = await translate(quotedMsg.chats, {
-                        to: bahasanya
-                    })
-                    .then((res) => reply(res.text))
-                    .catch((err) => {
-                        reply(bahasalist(prefix))
-                    })
-                    trans
-                    limitAdd(sender, limit)
-                } else {
-                    if (args.length < 3) return reply(`Penggunaan :\n*${prefix}translate* kodebahasa teks\n*${prefix}translate* kodebahasa <reply message>`)
-                    let bahasanya = args[1].toString()
-                    let textnya = q.slice(args[1].length + 1, q.length)
-                    const trans = await translate(textnya, {
-                        to: bahasanya
-                    })
-                    .then((res) => reply(res.text))
-                    .catch((err) => {
-                        reply(bahasalist(prefix))
-                    })
-                    trans
-                    limitAdd(sender, limit)
-                }
-            }
-                break
             case prefix+'tinyurl':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (args.length < 2) return reply(`Penggunaan :\n*${prefix}tinyurl link`)
@@ -816,18 +754,15 @@ Alert!!! : ${res.desc}`))
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 					const trut = ['Pernah suka sama siapa aja? berapa lama?', 'Kalau boleh atau kalau mau, di gc/luar gc siapa yang akan kamu jadikan sahabat?(boleh beda/sma jenis)', 'apa ketakutan terbesar kamu?', 'pernah suka sama orang dan merasa orang itu suka sama kamu juga?', 'Siapa nama mantan pacar teman mu yang pernah kamu sukai diam diam?', 'pernah gak nyuri uang nyokap atau bokap? Alesanya?', 'hal yang bikin seneng pas lu lagi sedih apa', 'pernah cinta bertepuk sebelah tangan? kalo pernah sama siapa? rasanya gimana brou?', 'pernah jadi selingkuhan orang?', 'hal yang paling ditakutin', 'siapa orang yang paling berpengaruh kepada kehidupanmu', 'hal membanggakan apa yang kamu dapatkan di tahun ini', 'siapa orang yang bisa membuatmu sange', 'siapa orang yang pernah buatmu sange', '(bgi yg muslim) pernah ga solat seharian?', 'Siapa yang paling mendekati tipe pasangan idealmu di sini', 'suka mabar(main bareng)sama siapa?', 'pernah nolak orang? alasannya kenapa?', 'Sebutkan kejadian yang bikin kamu sakit hati yang masih di inget', 'pencapaian yang udah didapet apa aja ditahun ini?', 'kebiasaan terburuk lo pas di sekolah apa?']
 					const ttrth = trut[Math.floor(Math.random() * trut.length)]
-					truteh = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
-					xinz.sendMessage(from, truteh, image, { caption: 'Truth\n\n' + ttrth, quoted: msg })
+					xinz.sendImage(from, await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`), 'Truth\n\n' + ttrth, msg)
 					break
 
 				case prefix+'dare':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 					const dare = ['Kirim pesan ke mantan kamu dan bilang "aku masih suka sama kamu', 'telfon crush/pacar sekarang dan ss ke pemain', 'pap ke salah satu anggota grup', 'Bilang "KAMU CANTIK BANGET NGGAK BOHONG" ke cowo', 'ss recent call whatsapp', 'drop emot 🤥 setiap ngetik di gc/pc selama 1 hari', 'kirim voice note bilang can i call u baby?', 'drop kutipan lagu/quote, terus tag member yang cocok buat kutipan itu', 'pake foto sule sampe 3 hari', 'ketik pake bahasa daerah 24 jam', 'ganti nama menjadi "gue anak lucinta luna" selama 5 jam', 'chat ke kontak wa urutan sesuai %batre kamu, terus bilang ke dia "i lucky to hv you', 'prank chat mantan dan bilang " i love u, pgn balikan', 'record voice baca surah al-kautsar', 'bilang "i hv crush on you, mau jadi pacarku gak?" ke lawan jenis yang terakhir bgt kamu chat (serah di wa/tele), tunggu dia bales, kalo udah ss drop ke sini', 'sebutkan tipe pacar mu!', 'snap/post foto pacar/crush', 'teriak gajelas lalu kirim pake vn kesini', 'pap mukamu lalu kirim ke salah satu temanmu', 'kirim fotomu dengan caption, aku anak pungut', 'teriak pake kata kasar sambil vn trus kirim kesini', 'teriak " anjimm gabutt anjimmm " di depan rumah mu', 'ganti nama jadi " BOWO " selama 24 jam', 'Pura pura kerasukan, contoh : kerasukan maung, kerasukan belalang, kerasukan kulkas, dll']
 					const der = dare[Math.floor(Math.random() * dare.length)]
-					tod = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
-					xinz.sendMessage(from, tod, image, { quoted: msg, caption: 'Dare\n\n' + der })
+					xinz.sendImage(from, await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`), 'Dare\n\n' + der , msg)
 					break
-
 				case prefix+'cekbapak': // By Ramlan ID
 					const bapak = ['Wah Mantap Lu Masih Punya Bapack\nPasti Bapack Nya Kuli :v\nAwowkwokwwok\n#CandabOs', 'Aowkwwo Disini Ada Yteam :v\nLu Yteam Bro? Awowkwowk\nSabar Bro Ga Punya Bapack\n#Camda', 'Bjir Bapack Mu Ternyata Sudah Cemrai\nSedih Bro Gua Liatnya\nTapi Nih Tapi :v\nTetep Ae Lu Yteam Aowkwowkw Ngakak :v', 'Jangan #cekbapak Mulu Broo :v\nKasian Yang Yteam\nNtar Tersinggung Kan\nYahahaha Hayyuk By : Ramlan ID']
 					const cek = bapak[Math.floor(Math.random() * bapak.length)]
@@ -856,9 +791,9 @@ Alert!!! : ${res.desc}`))
 //------------------< INFO >-------------------
             case prefix+'limit': case prefix+'ceklimit': case prefix+'balance': case prefix+'glimit':
                 if (mentioned.length !== 0){
-                    textImg(`Limit : ${_prem.checkPremiumUser(mentioned[0], premium) ? 'Unlimited' : `${getLimit(mentioned[0], limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(mentioned[0], gcount, glimit)}/${gcount}\nBalance : $${getBalance(mentioned[0], balance)}`)
+                    textImg(`Limit : ${_prem.checkPremiumUser(mentioned[0], premium) ? 'Unlimited' : `${getLimit(mentioned[0], limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(mentioned[0], gcount, glimit)}/${gcount}\nBalance : $${getBalance(mentioned[0], balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
                 } else {
-                    textImg(`Limit : ${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(sender, gcount, glimit)}/${gcount}\nBalance : $${getBalance(sender, balance)}`)
+                    textImg(`Limit : ${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(sender, gcount, glimit)}/${gcount}\nBalance : $${getBalance(sender, balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
                 }
                 break
             case prefix+'owner':
@@ -1467,6 +1402,40 @@ Data Berhasil Didapatkan!
                 mentions(txtx, menx, true)
                 break
 //------------------< Game >-------------------
+                case prefix+'topbalance':{
+                balance.sort((a, b) => (a.balance < b.balance) ? 1 : -1)
+                let top = '*── 「 TOP BALANCE 」 ──*\n\n'
+                let arrTop = []
+                for (let i = 0; i < 10; i ++){
+                    top += `${i + 1}. @${balance[i].id.split("@")[0]}\n=> Balance : $${balance[i].balance}\n\n`
+                    arrTop.push(balance[i].id)
+                }
+                mentions(top, arrTop, true)
+            }
+                break
+            case prefix+'buylimit':{
+                if (args.length < 2) return reply(`Kirim perintah *${prefix}buylimit* jumlah limit yang ingin dibeli\n\nHarga 1 limit = $150 balance`)
+                if (args[1].includes('-')) return reply(`Jangan menggunakan -`)
+                if (isNaN(args[1])) return reply(`Harus berupa angka`)
+                let ane = Number(nebal(args[1]) * 150)
+                if (getBalance(sender, balance) < ane) return reply(`Balance kamu tidak mencukupi untuk pembelian ini`)
+                kurangBalance(sender, ane, balance)
+                giveLimit(sender, nebal(args[1]), limit)
+                reply(monospace(`Pembeliaan limit sebanyak ${args[1]} berhasil\n\nSisa Balance : $${getBalance(sender, balance)}\nSisa Limit : ${getLimit(sender, limitCount, limit)}/${limitCount}`))
+            }
+                break
+            case prefix+'buygamelimit':
+            case prefix+'buyglimit':{
+                if (args.length < 2) return reply(`Kirim perintah *${prefix}buyglimit* jumlah game limit yang ingin dibeli\n\nHarga 1 game limit = $150 balance\nPajak $1 / $10`)
+                if (args[1].includes('-')) return reply(`Jangan menggunakan -`)
+                if (isNaN(args[1])) return reply(`Harus berupa angka`)
+                let ane = Number(nebal(args[1]) * 150)
+                if (getBalance(sender, balance) < ane) return reply(`Balance kamu tidak mencukupi untuk pembelian ini`)
+                kurangBalance(sender, ane, balance)
+                givegame(sender, nebal(args[1]), glimit)
+                reply(monospace(`Pembeliaan game limit sebanyak ${args[1]} berhasil\n\nSisa Balance : $${getBalance(sender, balance)}\nSisa Game Limit : ${cekGLimit(sender, gcount, glimit)}/${gcount}`))
+            }
+                break
             case prefix+'tictactoe': case prefix+'ttt': case prefix+'ttc':
                 if (!isGroup)return reply(mess.OnlyGrup)
                 if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
@@ -1525,6 +1494,17 @@ Data Berhasil Didapatkan!
             }
                 break
 //------------------< Owner >-------------------
+            case prefix+'clearall':{
+                if (!isOwner) return reply(mess.OnlyOwner)
+                let chiit = await xinz.chats.all()
+                for (let i of chiit){
+                    xinz.modifyChat(i.jid, 'delete', {
+                        includeStarred: false
+                    })
+                }
+                reply(`Selesai`)
+            }
+                break
             case prefix+'setprefix':
                 if (!isOwner) return reply(mess.OnlyOwner)
                 if (args.length < 2) return reply(`Masukkan prefix\nOptions :\n=> multi\n=> nopref`)
