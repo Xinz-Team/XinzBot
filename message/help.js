@@ -18,7 +18,6 @@ ${i.limit} ${prefix}sticker
 ${i.prem} ${prefix}swm
 ${i.prem} ${prefix}take
 ${i.limit} ${prefix}toimg
-${i.limit} ${prefix}ttp text
 ${i.limit} ${prefix}attp text
 ${i.limit} ${prefix}tinyurl url
 ${i.limit} ${prefix}nuliskiri text
@@ -69,6 +68,9 @@ ${i.owner} ${prefix}unban @tag
 ${i.free} ${prefix}listban
 
 *Game*
+${i.free} ${prefix}topbalance
+${i.free} ${prefix}buylimit
+${i.free} ${prefix}buyglimit
 ${i.glimit} ${prefix}tictactoe @tag
 ${i.glimit} ${prefix}tebakgambar
 ${i.glimit} ${prefix}family100
