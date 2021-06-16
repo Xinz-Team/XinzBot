@@ -71,6 +71,9 @@ let multi = true
 let nopref = false
 let prefa = 'anjing'
 
+// Mode
+let mode = 'public'
+
 let {
     ownerNumber,
     limitCount,
@@ -84,7 +87,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
     try {
         const { menu } = require("./help");
         const { type, quotedMsg, isGroup, isQuotedMsg, mentioned, sender, from, fromMe, pushname, chats } = msg
-        if (fromMe) return
+        if (isBaileys) return
         const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
         const args = chats.split(' ')
 		const command = chats.toLowerCase().split(' ')[0] || ''
@@ -179,6 +182,11 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
         const isQuotedImage = isQuotedMsg ? (quotedMsg.type === 'imageMessage') ? true : false : false
         const isQuotedVideo = isQuotedMsg ? (quotedMsg.type === 'videoMessage') ? true : false : false
         const isQuotedSticker = isQuotedMsg ? (quotedMsg.type === 'stickerMessage') ? true : false : false
+
+        // Mode
+        if (xinz.mode === 'self'){
+            if (!fromMe) return
+        }
 
         // Anti link
         if (isGroup && isAntiLink && !isOwner && !isGroupAdmins && isBotGroupAdmins){
@@ -1274,9 +1282,9 @@ Data Berhasil Didapatkan!
                     console.log(color('[Vvibu]', 'red'), err)
                     reply(mess.error.api)
                 })
-                            limitAdd(sender, limit)
-                            }
-                            break
+                limitAdd(sender, limit)
+            }
+                break
 			case prefix+'shinobu':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
@@ -1289,9 +1297,9 @@ Data Berhasil Didapatkan!
                     console.log(color('[Vvibu]', 'red'), err)
                     reply(mess.error.api)
                 })
-                            limitAdd(sender, limit)
-                            }
-                            break
+                limitAdd(sender, limit)
+            }
+                break
             case prefix+'loli':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
@@ -1307,7 +1315,7 @@ Data Berhasil Didapatkan!
 //------------------< Premium >-------------------
             case prefix+'addprem':
                 if (!isOwner) return reply(mess.OnlyOwner)
-                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu`)
+                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
                 if (mentioned.length !== 0){
                     for (let i = 0; i < mentioned.length; i++){
                     _prem.addPremiumUser(mentioned[0], args[2], premium)
@@ -1494,6 +1502,18 @@ Data Berhasil Didapatkan!
             }
                 break
 //------------------< Owner >-------------------
+            case prefix+'self':{
+                if (!isOwner && !fromMe) return reply(mess.OnlyOwner)
+                mode = 'self'
+                textImg('Berhasil berubah ke mode self')
+            }
+                break
+            case prefix+'publik': case prefix+'public':{
+                if (!isOwner && !fromMe) return reply(mess.OnlyOwner)
+                mode = 'public'
+                textImg('Berhasil berubah ke mode public')
+            }
+                break
             case prefix+'clearall':{
                 if (!isOwner) return reply(mess.OnlyOwner)
                 let chiit = await xinz.chats.all()
