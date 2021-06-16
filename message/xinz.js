@@ -184,7 +184,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
         const isQuotedSticker = isQuotedMsg ? (quotedMsg.type === 'stickerMessage') ? true : false : false
 
         // Mode
-        if (xinz.mode === 'self'){
+        if (mode === 'self'){
             if (!fromMe) return
         }
 
