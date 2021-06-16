@@ -1502,6 +1502,36 @@ Data Berhasil Didapatkan!
             }
                 break
 //------------------< Owner >-------------------
+            case prefix+'setpp': case prefix+'setppbot':
+            case prefix+'setpic': case prefix+'setpicbot':{
+                if (!isOwner && !fromMe) return reply(mess.OnlyOwner)
+                if (isImage || isQuotedImage) {
+                    let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(msg).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : msg
+                    let media = await xinz.downloadMediaMessage(encmedia)
+                    xinz.updateProfilePicture(xinz.user.jid, media)
+                    .then((res) => reply(jsonformat(res)))
+					.catch((err) => reply(jsonformat(err)))
+                } else {
+                    reply(`Kirim gambar atau reply gambar dengan caption ${command}`)
+                }
+            }
+                break
+            case prefix+'setname':{
+                if (!isOwner && !fromMe) return reply(mess.OnlyOwner)
+                if (args.length < 2) return reply(`Kirim perintah ${command} nama\n\nContoh : ${command} XinzBot`)
+                xinz.updateProfileName(q)
+                .then((res) => reply(jsonformat(res)))
+				.catch((err) => reply(jsonformat(err)))
+            }
+                break
+            case prefix+'setbio':{
+                if (!isOwner && !fromMe) return reply(mess.OnlyOwner)
+                if (args.length < 2) return reply(`Kirim perintah ${command} nama\n\nContoh : ${command} XinzBot`)
+                xinz.setStatus(q)
+                .then((res) => reply(jsonformat(res)))
+				.catch((err) => reply(jsonformat(err)))
+            }
+                break
             case prefix+'self':{
                 if (!isOwner && !fromMe) return reply(mess.OnlyOwner)
                 mode = 'self'

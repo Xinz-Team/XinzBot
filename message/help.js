@@ -126,8 +126,11 @@ ${i.owner} ${prefix}delbadword
 *Owner*
 ${i.owner} >
 ${i.owner} $
-${i.owner} self
-${i.owner} public
+${i.owner} ${prefix}self
+${i.owner} ${prefix}public
+${i.owner} ${prefix}setpp
+${i.owner} ${prefix}setname
+${i.owner} ${prefix}setbio
 ${i.owner} ${prefix}setprefix
 ${i.owner} ${prefix}bc
 ${i.owner} ${prefix}clearall
