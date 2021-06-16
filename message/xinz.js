@@ -86,7 +86,7 @@ moment.tz.setDefault("Asia/Jakarta").locale("id");
 module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
     try {
         const { menu } = require("./help");
-        const { type, quotedMsg, isGroup, isQuotedMsg, mentioned, sender, from, fromMe, pushname, chats } = msg
+        const { type, quotedMsg, isGroup, isQuotedMsg, mentioned, sender, from, fromMe, pushname, chats, isBaileys } = msg
         if (isBaileys) return
         const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
         const args = chats.split(' ')
