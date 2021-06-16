@@ -274,11 +274,11 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                         sendMess(ment, `Ada yang mencari anda saat anda offline\n\nNama : ${pushname}\nNomor : wa.me/${sender.split("@")[0]}\nIn Group : ${groupName}\nPesan : ${chats}`)
                     }
                 }
-                if (afk.checkAfkUser(sender, _afk)) {
-                    _afk.splice(afk.getAfkPosition(sender, _afk), 1)
-                    fs.writeFileSync('./database/afk.json', JSON.stringify(_afk))
-                    await mentions(`@${sender.split('@')[0]} telah kembali`, [sender], true)
-                }
+            }
+            if (afk.checkAfkUser(sender, _afk)) {
+                _afk.splice(afk.getAfkPosition(sender, _afk), 1)
+                fs.writeFileSync('./database/afk.json', JSON.stringify(_afk))
+                await mentions(`@${sender.split('@')[0]} telah kembali`, [sender], true)
             }
         }
 
