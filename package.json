@@ -12,7 +12,7 @@
   },
   "author": "aqulzz",
   "dependencies": {
-    "@adiwajshing/baileys": "github:adiwajshing/Baileys",
+    "@adiwajshing/baileys": "^3.5.1",
     "@vitalets/google-translate-api": "^7.0.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.1",
