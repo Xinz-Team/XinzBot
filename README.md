@@ -53,7 +53,7 @@ cd XinzBot
 npm install
 node main
 ```
-
+ 
 ## For VPS
 ```bash
 apt install nodejs git ffmpeg libwebp imagemagick
