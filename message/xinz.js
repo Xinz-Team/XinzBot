@@ -229,7 +229,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
         }
 
         // TicTacToe
-        if (isTicTacToe(from, tictactoe)) tictac(chats, prefix, tictactoe, from, sender, reply, mentions, addBalance, balance)
+        if (isTicTacToe(from, tictactoe)) tictac(xinz, chats, prefix, tictactoe, from, sender, reply, mentions, addBalance, balance)
 
         // GAME 
         game.cekWaktuFam(xinz, family100)
