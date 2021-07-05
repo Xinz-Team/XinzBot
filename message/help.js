@@ -20,6 +20,7 @@ ${i.prem} ${prefix}take
 ${i.limit} ${prefix}toimg
 ${i.limit} ${prefix}attp text
 ${i.limit} ${prefix}tinyurl url
+${i.limit} ${prefix}imgtourl
 ${i.limit} ${prefix}nuliskiri text
 ${i.limit} ${prefix}nuliskanan text
 ${i.limit} ${prefix}foliokiri text

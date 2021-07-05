@@ -525,6 +525,19 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 .then((a) => reply(`Nih ${a.data}`))
                 .catch(() => reply(`Error, harap masukkan link dengan benar`))
                 break
+            case prefix+'imgtourl':{
+                if (isImage || isQuotedImage) {
+                    let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(msg).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : msg
+                    let media = await xinz.downloadMediaMessage(encmedia)
+                    let toBase64 = media.toString('base64')
+                    let upload = await require("../lib/upToTuru")(toBase64)
+                    await reply(`${upload.image.image.url}`)
+                    limitAdd(sender, limit)
+                } else {
+                    reply(`Kirim gambar atau reply gambar dengan caption ${command}`)
+                }
+            }
+                break
 //------------------< NULIS >---------------------
             case prefix+'nulis':
                 reply(`*Pilihan*\n${prefix}nuliskiri\n${prefix}nuliskanan\n${prefix}foliokiri\n${prefix}foliokanan`)
@@ -1815,7 +1828,7 @@ Data Berhasil Didapatkan!
 					fs.writeFileSync('./database/grupbadword.json', JSON.stringify(grupbadword))
 					reply(`antibadword grup aktif, kirim ${prefix}listbadword untuk melihat list badword`)
                 } else if (args[1].toLowerCase() === 'disable'){
-                    anu = grupbadword.indexOf(from)
+                    let anu = grupbadword.indexOf(from)
                     grupbadword.splice(anu, 1)
                     fs.writeFileSync('./database/grupbadword.json', JSON.stringify(grupbadword))
                     reply('antibadword grup nonaktif')
