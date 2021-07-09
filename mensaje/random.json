@@ -1,0 +1,26 @@
+{
+    " apa " : [
+        "Sí",
+        " Quizás " ,
+        " Puede ser " ,
+        "Repetir",
+        " No " ,
+        " No entiendo "
+    ],
+    " kapan " : [
+        "1 año más",
+        "2 años más",
+        "3 años más",
+        "1/2 año restante",
+        "1 mes más",
+        "2 meses más",
+        "3 meses más",
+        "1 semana más",
+        "2 semanas más",
+        "1 día más",
+        "2 días más",
+        " 3 días más " ,
+        "menos que 24 horas",
+        "8 horas más"
+    ]
+}
