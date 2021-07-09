@@ -191,7 +191,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
         // Anti link
         if (isGroup && isAntiLink && !isOwner && !isGroupAdmins && isBotGroupAdmins){
             if (chats.match(/(https:\/\/chat.whatsapp.com)/gi)) {
-                reply(`*「 GROUP LINK DETECTOR 」*\n\nSepertinya kamu mengirimkan link grup, maaf kamu akan di kick`)
+                reply(`*「 GROUP LINK DETECTOR 」*\n\nParece que enviaste el enlace del grupo, lo siento, serás expulsado`)
                 xinz.groupRemove(from, [sender])
             }
         }
@@ -201,13 +201,13 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
             for (let kasar of badword){
                 if (chats.toLowerCase().includes(kasar)){
                     if (isCountKasar(sender, senbadword)){
-                        if (!isBotGroupAdmins) return reply(`Kamu beruntung karena bot bukan admin`)
-                        reply(`*「 ANTI BADWORD 」*\n\nSepertinya kamu sudah berkata kasar lebih dari 5x, maaf kamu akan di kick`)
+                        if (!isBotGroupAdmins) return reply(`Tienes suerte porque los bots no son administradores`)
+                        reply(`*「 ANTI BADWORD 」*\n\nParece que dijiste grosero más de 5 veces, lo siento, te patearán`)
                         xinz.groupRemove(from, [sender])
                         delCountKasar(sender, senbadword)
                     } else {
                         addCountKasar(sender, senbadword)
-                        reply(`Kamu terdeteksi berkata kasar\nJangan ulangi lagi atau kamu akan dikick`)
+                        reply(`Fuiste detectado como grosero\nNo lo hagas de nuevo o te patearán`)
                     }
                 }
             }
@@ -240,7 +240,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
             if (chats.toLowerCase().includes(game.getJawabanTG(from, tebakgambar))){
                 var htgm = randomNomor(100)
                 addBalance(sender, htgm, balance)
-                await reply(`*Selamat jawaban kamu benar*\n*Jawaban :* ${game.getJawabanTG(from, tebakgambar)}\n*Hadiah :* $${htgm}\n\nIngin bermain lagi? kirim *${prefix}tebakgambar*`)
+                await reply(`*Felicitaciones, tu respuesta es correcta*\n*Respuesta :* ${game.getJawabanTG(from, tebakgambar)}\n*Regalo :* $${htgm}\n\nQuieres jugar de nuevo? Enviar *${prefix}tebakgambar*`)
                 tebakgambar.splice(game.getTGPosi(from, tebakgambar), 1)
             }
         }
@@ -250,13 +250,13 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 if (chats.toLowerCase().includes(i)){
                     var htgmi = Math.floor(Math.random() * 20) + 1
                     addBalance(sender, htgmi, balance)
-                    await reply(`*Jawaban benar*\n*Jawaban :* ${i}\n*Hadiah :* $${htgmi}\n*Jawaban yang blum tertebak :* ${anjuy.length - 1}`)
+                    await reply(`*Respuesta correcta*\n*Respuesta :* ${i}\n*Regalo :* $${htgmi}\n*Respuesta imprevista :* ${anjuy.length - 1}`)
                     var anug = anjuy.indexOf(i)
                     anjuy.splice(anug, 1)
                 }
             }
             if (anjuy.length < 1){
-                xinz.sendMessage(from, `Semua jawaban sudah tertebak\nKirim *${prefix}family100* untuk bermain lagi`, text)
+                xinz.sendMessage(from, `Todas las respuestas son adivinadas\nEnviar *${prefix}family100* jugar de nuevo`, text)
                 family100.splice(game.getfamposi(from, family100), 1)
             }
         }
@@ -278,15 +278,15 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                         const getReason = afk.getAfkReason(getId, _afk)
                         const getTime = Date.now() - afk.getAfkTime(getId, _afk)
                         const heheh = ms(getTime)
-                        await mentions(`@${ment.split('@')[0]} sedang afk\n\n*Alasan :* ${getReason}\n*Sejak :* ${heheh.hours} Jam, ${heheh.minutes} Menit, ${heheh.seconds} Detik lalu`, [ment], true)
-                        sendMess(ment, `Ada yang mencari anda saat anda offline\n\nNama : ${pushname}\nNomor : wa.me/${sender.split("@")[0]}\nIn Group : ${groupName}\nPesan : ${chats}`)
+                        await mentions(`@${ment.split('@')[0]} ser afk\n\n*Razón :* ${getReason}\n*Sejak :* ${heheh.hours} Hora, ${heheh.minutes} Minuto, ${heheh.seconds} Hace segundos`, [ment], cierto)
+                        sendMeset( `Alguien te está buscando cuando no estás conectado\n\nNombre  : ${pushname}\nNumero : wa.me/${sender.split("@")[0]}\nEn Grupo : ${groupName}\nmensaje : ${chats}`)
                     }
                 }
             }
             if (afk.checkAfkUser(sender, _afk)) {
                 _afk.splice(afk.getAfkPosition(sender, _afk), 1)
                 fs.writeFileSync('./database/afk.json', JSON.stringify(_afk))
-                await mentions(`@${sender.split('@')[0]} telah kembali`, [sender], true)
+                await mentions(`@${sender.split('@')[0]} ya regresó`, [sender], cierto)
             }
         }
 
