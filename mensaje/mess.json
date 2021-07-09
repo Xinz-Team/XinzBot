@@ -1,0 +1,13 @@
+{
+    "wait": "* Espere a que se procese su solicitud *",
+    "error": {
+        "iv": "El vínculo que proporcionó no es válido",
+        "fire": "Lo sentimos, se produjo un error"
+    },
+    "OnlyGroup": "Este comando solo se puede utilizar en grupos",
+    "OnlyPM": "Este comando solo se puede utilizar en mensajes privados",
+    "GroupAdmin": "Este comando solo puede ser utilizado por administradores de grupo",
+    "BotAdmin": "El bot debe ser administrador",
+    "OnlyOwner": "Este comando solo puede ser utilizado por el propietario del bot",
+    "OnlyPrem": "Este pedido es solo para miembros premium"
+}
