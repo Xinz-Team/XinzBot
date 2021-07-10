@@ -661,44 +661,44 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 //------------------< Text Marker >-------------------
             case prefix+'blackpink': case prefix+'bp':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
-                if (args.length < 2) return reply(`Uso ${command} text`)
+                if (args.length < 2) return reply(`Usar ${command} text`)
                 reply(mess.wait)
                 sendFileFromUrl(from, `https://api.lolhuman.xyz/api/textprome/blackpink?apikey=${lolkey}&text=${q}`, '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
                 break
             case prefix+'glitch': case prefix+'glitchtext':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
-                if (args.length < 2) return reply(`Uso ${command} text1|text2`)
-                if (!q.includes("|")) return reply(`Uso ${command} text1|text2`)
+                if (args.length < 2) return reply(`Usar ${command} text1|text2`)
+                if (!q.includes("|")) return reply(`Usar ${command} text1|text2`)
                 reply(mess.wait)
                 sendFileFromUrl(from, `https://api.lolhuman.xyz/api/textprome2/glitch?apikey=${lolkey}&text1=${q.split("|")[0]}&text2=${q.split("|")[1]}`, '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
                 break
             case prefix+'neon': case prefix+'neontext':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
-                if (args.length < 2) return reply(`Uso ${command} text`)
+                if (args.length < 2) return reply(`Usar ${command} text`)
                 reply(mess.wait)
                 sendFileFromUrl(from, `https://api.lolhuman.xyz/api/textprome/neon?apikey=${lolkey}&text=${q}`, '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
                 break
             case prefix+'harta': case prefix+'hartatahta': case prefix+'tahta':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
-                if (args.length < 2) return reply(`Uso ${command} text`)
+                if (args.length < 2) return reply(`Usar ${command} text`)
                 reply(mess.wait)
                 xinz.sendImage(from, await getBuffer(`https://api.lolhuman.xyz/api/hartatahta?apikey=${lolkey}&text=${q}`), '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
                 break
 	case prefix+'thundername': case prefix+'thunder':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
-                if (args.length < 2) return reply(`Uso ${command} text`)
+                if (args.length < 2) return reply(`Usar ${command} text`)
                 reply(mess.wait)
                 sendFileFromUrl(from, `https://api.lolhuman.xyz/api/textprome/thunder?apikey=${lolkey}&text=${q}`, '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
                 break
             case prefix+'pornhub': case prefix+'phlogo':
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
-                if (args.length < 2) return reply(`Uso ${command} text1|text2`)
-                if (!q.includes("|")) return reply(`Uso ${command} text1|text2`)
+                if (args.length < 2) return reply(`Usar ${command} text1|text2`)
+                if (!q.includes("|")) return reply(`Usar ${command} text1|text2`)
                 reply(mess.wait)
                 sendFileFromUrl(from, `https://api.lolhuman.xyz/api/textprome2/pornhub?apikey=${lolkey}&text1=${q.split("|")[0]}&text2=${q.split("|")[1]}`, '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
@@ -793,14 +793,14 @@ Alert!!! : ${res.desc}`))
                 mentions(`@${sender.split("@")[0]}`, [sender], true)
                 break
             case prefix+'kontak':
-                if (args.length < 2) return reply(`Penggunaan ${command} nomor|nama`)
-                if (!q.includes("|")) return reply(`Penggunaan ${command} nomor|nama`)
-                if (isNaN(q.split("|")[0])) return reply(`Penggunaan ${command} nomor|nama`)
+                if (args.length < 2) return reply(`Usar ${command} numero|nombre`)
+                if (!q.includes("|")) return reply(`Usar ${command} numero|nombre`)
+                if (isNaN(q.split("|")[0])) return reply(`Usar ${command} numero|nombre`)
                 xinz.sendContact(from, q.split("|")[0], q.split("|")[1], msg)
                 break
             case prefix+'hidetag':{
-                if (!isPremium) return reply(`Kamu bukan user premium, kirim perintah *${prefix}daftarprem* untuk membeli premium`)
-                if (args.length < 2) return reply(`Masukkan text`)
+                if (!isPremium) return reply(`No eres un usuario premium, envía un pedido *${prefix}daftarprem* comprar premium`)
+                if (args.length < 2) return reply(`Ingrese texto`)
                 let arr = [];
                 for (let i of groupMembers){
                     arr.push(i.jid)
