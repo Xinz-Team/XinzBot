@@ -743,16 +743,16 @@ Alert!!! : ${res.desc}`))
 				case prefix+'bisakah':
 					const bisa = ['¡Por supuesto que puedo! Eres la persona más hogareña ',' No puedo Ajg Aowkwowk ',' Hmm, no sé, sí, pregúntale a papá ',' Repite Tod que no entiendo ']
 					const keh = bisa[Math.floor(Math.random() * bisa.length)]
-					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + keh, text, { quoted: msg })
+					xinz.sendMessage(from, 'Pregunta : ' + q + '\n\nrespuesta : ' + keh, text, { quoted: msg })
 					break
 					case prefix+'kapankah':
 					const kapan = ['Mañana', 'Pasado mañana', 'Más temprano', '4 días nuevamente', '5 días más', '6 días nuevamente', '1 semana nuevamente', '2 semanas nuevamente', '3 semanas nuevamente' , '1 mes más', '2 meses más', '3 meses', '4 meses', '5 meses', '6 meses nuevamente', '1 año nuevamente', '2 años nuevamente', '3 años nuevamente ',' 4 años más ',' 5 años nuevamente ',' 6 años nuevamente ',' 1 siglo nuevamente ',' 3 días nuevamente ']
 					const koh = kapan[Math.floor(Math.random() * kapan.length)]
-					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + koh, text, { quoted: msg })
+					xinz.sendMessage(from, 'Pregunta : ' + q + '\n\ntespuesta : ' + koh, text, { quoted: msg })
 				case prefix+'apakah':
 					const apa = ['Iya', 'Tidak', 'Bisa Jadi', 'Ulangi bro gak paham']
 					const kah = apa[Math.floor(Math.random() * apa.length)]
-					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + kah, text, { quoted: msg })
+					xinz.sendMessage(from, 'Presgunta : ' + q + '\n\nrespuesta : ' + kah, text, { quoted: msg })
 					break
 
 
@@ -761,30 +761,30 @@ Alert!!! : ${res.desc}`))
 					if (!isRegistered) return reply(nad.noregis())
 					const ra = ['4', '9', '17', '28', '34', '48', '59', '62', '74', '83', '97', '100', '29', '94', '75', '82', '41', '39']
 					const te = ra[Math.floor(Math.random() * ra.length)]
-					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + te + '%', text, { quoted: msg })
+					xinz.sendMessage(from, 'Pregunta : ' + q + '\n\nrespuesta : ' + te + '%', text, { quoted: msg })
 					break
 
 				case prefix+'hobby':
-					const hob = ['Desah Di Game', 'Ngocokin Doi', 'Stalking sosmed nya mantan', 'Kau kan gak punya hobby awokawok', 'Memasak', 'Membantu Atok', 'Mabar', 'Nobar', 'Sosmedtan', 'Membantu Orang lain', 'Nonton Anime', 'Nonton Drakor', 'Naik Motor', 'Nyanyi', 'Menari', 'Bertumbuk', 'Menggambar', 'Foto fotoan Ga jelas', 'Maen Game', 'Berbicara Sendiri']
+					const hob = ['Sigh at the Game', 'Ngocokin Doi', 'Acechando las redes sociales de su ex', 'No tienes un pasatiempo del awokawok', 'Cocinar', 'Ayuda a Atok', 'Mabar', 'Nobar', 'Sosmedtan', 'Ayudar a otras personas', 'Ver anime', 'Ver drama', 'Montar en motocicleta', 'Cantar', 'Bailar', 'Chocar', 'Dibujar', 'Las fotos no son claras', 'Jugar games', 'Hablar conmigo mismo']
 					const by = hob[Math.floor(Math.random() * hob.length)]
-					xinz.sendMessage(from, 'Pertanyaan : ' + q + '\n\nJawaban : ' + by, text, { quoted: msg })
+					xinz.sendMessage(from, 'Pregunta : ' + q + '\n\nrespuesta : ' + by, text, { quoted: msg })
 					break
 
 				case prefix+'truth':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					const trut = ['Pernah suka sama siapa aja? berapa lama?', 'Kalau boleh atau kalau mau, di gc/luar gc siapa yang akan kamu jadikan sahabat?(boleh beda/sma jenis)', 'apa ketakutan terbesar kamu?', 'pernah suka sama orang dan merasa orang itu suka sama kamu juga?', 'Siapa nama mantan pacar teman mu yang pernah kamu sukai diam diam?', 'pernah gak nyuri uang nyokap atau bokap? Alesanya?', 'hal yang bikin seneng pas lu lagi sedih apa', 'pernah cinta bertepuk sebelah tangan? kalo pernah sama siapa? rasanya gimana brou?', 'pernah jadi selingkuhan orang?', 'hal yang paling ditakutin', 'siapa orang yang paling berpengaruh kepada kehidupanmu', 'hal membanggakan apa yang kamu dapatkan di tahun ini', 'siapa orang yang bisa membuatmu sange', 'siapa orang yang pernah buatmu sange', '(bgi yg muslim) pernah ga solat seharian?', 'Siapa yang paling mendekati tipe pasangan idealmu di sini', 'suka mabar(main bareng)sama siapa?', 'pernah nolak orang? alasannya kenapa?', 'Sebutkan kejadian yang bikin kamu sakit hati yang masih di inget', 'pencapaian yang udah didapet apa aja ditahun ini?', 'kebiasaan terburuk lo pas di sekolah apa?']
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
+					const trut = ['¿Alguna vez te ha gustado alguien? ¿Cuánto tiempo?', 'Si puedes o si quieres, ¿con qué gc/gc externo te harías amigo? (tal vez diferente/del mismo género)', '¿cuál es tu mayor miedo?', '¿Alguna vez te ha gustado alguien y ¿Sentiste que esa persona también te agrada?', '¿Cómo se llama la ex novia de tu amigo que te gustaba en secreto?', '¿Alguna vez le has robado dinero a tu padre o padre? ¿La razón?', '¿Qué te hace feliz cuando estás triste?', '¿Alguna vez has tenido un amor unilateral? si es así quien? ¿Cómo se siente hermano?', '¿Alguna vez has estado con la aventura de otra persona?', 'Lo que más temes', '¿Quién es la persona más influyente en tu vida?', '¿Qué orgullo te sentiste este año?', '¿Quién es la persona que puede hacerte muy feliz?', '¿Quién te ha hecho muy feliz alguna vez?', '(Para los musulmanes) ¿alguna vez te has perdido de orar todo el día?', '¿Quién está más cerca de tu tipo ideal de socio aquí', '¿Con quién te gusta pasar el rato? ¿Rechazar a la gente? ¿Cuál es la razón por la cual?', 'Nombra un incidente que te hizo sentir herido y que aún recuerdas', '¿Qué has logrado este año?', '¿Cuál fue tu peor hábito en la escuela?']
 					const ttrth = trut[Math.floor(Math.random() * trut.length)]
 					xinz.sendImage(from, await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`), 'Truth\n\n' + ttrth, msg)
 					break
 
 				case prefix+'dare':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					const dare = ['Kirim pesan ke mantan kamu dan bilang "aku masih suka sama kamu', 'telfon crush/pacar sekarang dan ss ke pemain', 'pap ke salah satu anggota grup', 'Bilang "KAMU CANTIK BANGET NGGAK BOHONG" ke cowo', 'ss recent call whatsapp', 'drop emot 🤥 setiap ngetik di gc/pc selama 1 hari', 'kirim voice note bilang can i call u baby?', 'drop kutipan lagu/quote, terus tag member yang cocok buat kutipan itu', 'pake foto sule sampe 3 hari', 'ketik pake bahasa daerah 24 jam', 'ganti nama menjadi "gue anak lucinta luna" selama 5 jam', 'chat ke kontak wa urutan sesuai %batre kamu, terus bilang ke dia "i lucky to hv you', 'prank chat mantan dan bilang " i love u, pgn balikan', 'record voice baca surah al-kautsar', 'bilang "i hv crush on you, mau jadi pacarku gak?" ke lawan jenis yang terakhir bgt kamu chat (serah di wa/tele), tunggu dia bales, kalo udah ss drop ke sini', 'sebutkan tipe pacar mu!', 'snap/post foto pacar/crush', 'teriak gajelas lalu kirim pake vn kesini', 'pap mukamu lalu kirim ke salah satu temanmu', 'kirim fotomu dengan caption, aku anak pungut', 'teriak pake kata kasar sambil vn trus kirim kesini', 'teriak " anjimm gabutt anjimmm " di depan rumah mu', 'ganti nama jadi " BOWO " selama 24 jam', 'Pura pura kerasukan, contoh : kerasukan maung, kerasukan belalang, kerasukan kulkas, dll']
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
+					const dare = ['Envía un mensaje a tu ex y dile "Todavía me gustas", "llama a tu enamorada/novia ahora y envíale un mensaje de texto al jugador", "hazle papilla a un miembro del grupo", "Dile" ERES TAN HERMOSO, NO MIENTES "a los chicos', 'es la llamada reciente de whatsapp', 'suelta el emote cada vez que escribas en gc/pc durante 1 día', 'envía una nota de voz diciendo ¿puedo llamarte bebé?', 'suelta la cita/cita de la canción, sigue etiquetando al miembro correcto para esa cita', 'usa la foto de Sule durante 3 días', 'escribe en el idioma local las 24 horas', 'cambia el nombre a "Soy un hijo de lucinta luna" durante 5 horas', 'chatea con wa contact en el orden de tu% batre, sigue diciéndole "tengo suerte de tenerte", "chatear con broma con tu ex y decir" te amo, pgn return", "grabar voz leer surah al-kautsar", "decir"estoy enamorado de ti, quiero ser mi novia o no? "al sexo opuesto, el último con el que conversaste (se lo entregaste en wa/tele), espera a que responda, si es ss, déjate caer aquí', '¡menciona tu tipo de novio!', 'snap/publicar foto de novio/enamoramiento', 'gritar incoherentemente y luego enviar usando vn ven aquí', 'papita tu cara y envíalo al equivocado tu amigo', 'envía tu foto con la leyenda, soy un niño adoptado', 'grita usando palabras duras mientras vn y luego envíala aquí', 'grita "anjimm gabutt anjimmm" frente a tu casa', 'cambia de nombre a "BOWO" durante 24 horas', 'Fingir estar poseído, por ejemplo: poseído por maung, poseído por saltamontes, poseído por refrigerador, etc.']
 					const der = dare[Math.floor(Math.random() * dare.length)]
-					xinz.sendImage(from, await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`), 'Dare\n\n' + der , msg)
+					xinz.sendImage(from, await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`), 'Atrevimiento\n\n' + der , msg)
 					break
 				case prefix+'cekbapak': // By Ramlan ID
-					const bapak = ['Wah Mantap Lu Masih Punya Bapack\nPasti Bapack Nya Kuli :v\nAwowkwokwwok\n#CandabOs', 'Aowkwwo Disini Ada Yteam :v\nLu Yteam Bro? Awowkwowk\nSabar Bro Ga Punya Bapack\n#Camda', 'Bjir Bapack Mu Ternyata Sudah Cemrai\nSedih Bro Gua Liatnya\nTapi Nih Tapi :v\nTetep Ae Lu Yteam Aowkwowkw Ngakak :v', 'Jangan #cekbapak Mulu Broo :v\nKasian Yang Yteam\nNtar Tersinggung Kan\nYahahaha Hayyuk By : Ramlan ID']
+					const bapak = ['Vaya, es genial que todavía tengas una mochilanSeguro que es la mochila de un coolie:v\nAwowkwokwwok\n#CandabOs', 'Aowkwwo Aquí tienes un Yteam:v\nLu Yteam Bro? Awowkwowk\nPatience Bro Don't Have Bapack\n#Camda', 'Tu Bapack Bjir resulta ser celoso\nTriste hermano, lo veo\nPero aquí pero:v\nMantén a Ae Lu Yteam Aowkwowkw riendo:v', 'No #cekbapak Mulu Broo:v\nPobre Yteam\nNtar ofendido\nYahahaha Hayyuk Por : Ramlan ID']
 					const cek = bapak[Math.floor(Math.random() * bapak.length)]
 					xinz.sendMessage(from, cek, text, { quoted: msg })
 					break
