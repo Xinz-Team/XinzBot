@@ -1,5 +1,6 @@
 exports.menu = (prefix, i) => {
-║return `*Xinz Bot*
+
+║ return `*Xinz Bot*
 ║Created by Xinz Team
 ┆ 
 └┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈⌣
