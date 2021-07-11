@@ -811,15 +811,15 @@ Alert!!! : ${res.desc}`))
 //------------------< INFO >-------------------
             case prefix+'limit': case prefix+'ceklimit': case prefix+'balance': case prefix+'glimit':
                 if (mentioned.length !== 0){
-                    textImg(`Limit : ${_prem.checkPremiumUser(mentioned[0], premium) ? 'Unlimited' : `${getLimit(mentioned[0], limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(mentioned[0], gcount, glimit)}/${gcount}\nBalance : $${getBalance(mentioned[0], balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
+                    textImg(`Límite : $ {_ prem.checkPremiumUser(mencionado [0], premium)? 'Unlimited' : `${getLimit(mencionado [0], limitCount, limit)}/${limitCount}`}\nLimit Game : ${checkGLimit(mencionado [0], gcount, glimit)}/${gcount}\nBalance : $${getBalance(mencionado [0], balance)}\n\nPuedes comprar límite con ${prefix}buylimit y ${prefix}buyglimit para comprar límite de juego`)
                 } else {
-                    textImg(`Limit : ${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(sender, gcount, glimit)}/${gcount}\nBalance : $${getBalance(sender, balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
+                    textImg(`Límite : ${isPremium? 'Unlimited' : `${getLimit(remitente, limitCount, limit)}/${limitCount}`}\nLimit Juego : ${checkGLimit(remitente, gcount, glimit)}/${gcount}\nBalance : $${getBalance(remitente, saldo)}\n\nPuedes comprar el límite con ${prefix}buylimit y ${prefix}buyglimit para comprar el límite del juego`)
                 }
                 break
             case prefix+'owner':
             case prefix+'creator':
                 xinz.sendContact(from, ownerNumber.split("@")[0], setting.ownerName, msg)
-                .then((res) => xinz.sendMessage(from, 'Nih kontak ownerku', text, {quoted: res}))
+                .then((res) => xinz.sendMessage(from, 'Aquí está el contacto de mi propietario', text, {quoted: res}))
                 break
             case prefix+'ping':
             case prefix+'speed':{
@@ -832,7 +832,7 @@ Alert!!! : ${res.desc}`))
                 textImg(setting.txtDonasi)
                 break
             case prefix+'sourcecode': case prefix+'sc': case prefix+'src':
-                textImg(`Bot ini menggunakan sc : https://github.com/Xinz-Team/XinzBot`)
+                textImg(`Este bot usa sc : https://github.com/Xinz-Team/XinzBot`)
                 break
             case prefix+'runtime':
                 textImg(`${runtime(process.uptime())}`)
@@ -873,8 +873,8 @@ Alert!!! : ${res.desc}`))
 				break
 //------------------< Downloader >-------------------
             case prefix+'ytmp4':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length === 1) return reply(`Kirim perintah *${prefix}ytmp4 [linkYt]*`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
+                if (args.length === 1) return reply(`Enviar pedidos *${prefix}ytmp4 [linkYt]*`)
                 let isLinks2 = args[1].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
                 if (!isLinks2) return reply(mess.error.Iv)
                 try {
@@ -888,22 +888,22 @@ Alert!!! : ${res.desc}`))
 ┆ *YOUTUBE MP4*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Title : ${title}\`\`\`
 \`\`\`▢ Ext : MP4\`\`\`
 \`\`\`▢ Filesize : ${filesizeF}\`\`\`
 \`\`\`▢ Link : ${a.data}\`\`\`
-_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
+_Por la duración de más de la túnica presentada en forma de enlace_`, msg)
                         const captionsYtmp4 = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE MP4*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Title : ${title}\`\`\`
 \`\`\`▢ Ext : MP4\`\`\`
 \`\`\`▢ Size : ${filesizeF}\`\`\`
 
-_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+_Espere a que se envíe el archivo multimedia; puede tardar unos minutos_`
                             sendFileFromUrl(from, thumb, captionsYtmp4, msg)
                             sendFileFromUrl(from, dl_link, '', msg)
                             limitAdd(sender, limit)
@@ -918,7 +918,7 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
             }
                 break
             case prefix+'ytmp3':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 if (args.length === 1) return reply(`Kirim perintah *${prefix}ytmp3 [linkYt]*`)
                 let isLinks = args[1].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
                 if (!isLinks) return reply(mess.error.Iv)
@@ -933,22 +933,22 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 ┆ *YOUTUBE MP3*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Title : ${title}
 \`\`\`▢ Ext : MP3
 \`\`\`▢ Filesize : ${filesizeF}
 \`\`\`▢ Link : ${a.data}
-_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
+_Por la duración de más de la túnica presentada en forma de enlace_`, msg)
                         const captions = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE MP3*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Title : ${title}\`\`\`
 \`\`\`▢ Ext : MP3\`\`\`
 \`\`\`▢ Size : ${filesizeF}\`\`\`
 
-_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+_Espere a que se envíe el archivo multimedia; puede tardar unos minutos_`
                             sendFileFromUrl(from, thumb, captions, msg)
                             sendFileFromUrl(from, dl_link, '', msg)
                             limitAdd(sender, limit)
@@ -963,7 +963,7 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
             }
                 break
             case prefix+'playmp4':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 if (args.length === 1) return reply(`Kirim perintah *${prefix}playmp4 query*`)
                 try {
                     reply(mess.wait)
@@ -977,7 +977,7 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 ┆ *YOUTUBE PLAYMP4*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Title : ${title}\`\`\`
 \`\`\`▢ Ext : MP4\`\`\`
 \`\`\`▢ Filesize : ${filesizeF}\`\`\`
@@ -986,12 +986,12 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 \`\`\`▢ Ditonton : ${yut.videos[0].views}\`\`\`
 \`\`\`▢ Duration : ${yut.videos[0].timestamp}\`\`\`
 \`\`\`▢ Link : ${a.data}\`\`\`
-_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
+_Por la duración de más de la túnica presentada en forma de enlace_`, msg)
                         const captionisu = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE PLAYMP4*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Title : ${title}\`\`\`
 \`\`\`▢ Ext : MP4\`\`\`
 \`\`\`▢ Size : ${filesizeF}\`\`\`
@@ -1001,7 +1001,7 @@ _Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
 \`\`\`▢ Duration : ${yut.videos[0].timestamp}\`\`\`
 \`\`\`▢ URL : ${yut.videos[0].url}\`\`\`
 
-_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+_Espere a que se envíe el archivo multimedia; puede tardar unos minutos_`
                             sendFileFromUrl(from, thumb, captionisu, msg)
                             sendFileFromUrl(from, dl_link, '', msg)
                             limitAdd(sender, limit)
@@ -1016,7 +1016,7 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
             }
                 break
             case prefix+'play': case prefix+'playmp3':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 if (args.length === 1) return reply(`Kirim perintah *${prefix}play query*`)
                 try {
                     reply(mess.wait)
@@ -1030,7 +1030,7 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 ┆ *YOUTUBE PLAYMP3*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Title : ${title}\`\`\`
 \`\`\`▢ Ext : MP3\`\`\`
 \`\`\`▢ Filesize : ${filesizeF}\`\`\`
@@ -1039,12 +1039,12 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 \`\`\`▢ Ditonton : ${yut.videos[0].views}\`\`\`
 \`\`\`▢ Duration : ${yut.videos[0].timestamp}\`\`\`
 \`\`\`▢ Link : ${a.data}\`\`\`
-_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
+_Por la duración de más de la túnica presentada en forma de enlace_`, msg)
                         const captionis = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE PLAYMP3*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Title : ${title}\`\`\`
 \`\`\`▢ Ext : MP3\`\`\`
 \`\`\`▢ Size : ${filesizeF}\`\`\`
@@ -1054,7 +1054,7 @@ _Untuk durasi lebih dari batas disajikan dalam bentuk link_`, msg)
 \`\`\`▢ Duration : ${yut.videos[0].timestamp}\`\`\`
 \`\`\`▢ URL : ${yut.videos[0].url}\`\`\`
 
-_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
+_Espere a que se envíe el archivo multimedia; puede tardar unos minutos_`
                             sendFileFromUrl(from, thumb, captionis, msg)
                             sendFileFromUrl(from, dl_link, '', msg)
                             limitAdd(sender, limit)
@@ -1071,8 +1071,8 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
             case prefix+'ig':
             case prefix+'igdl':
             case prefix+'instagram':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Kirim perintah *${prefix}ig* link ig`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
+                if (args.length < 2) return reply(`Enviar pedidos *${prefix}ig* enlace ig`)
                 if (!isUrl(args[1]) && !args[1].includes('instagram.com')) return reply(mess.error.Iv)
                 reply(mess.wait)
                 getPost(args[1].split('/')[4])
@@ -1082,12 +1082,12 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 ┆ *INSTAGRAM MEDIA*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Owner : ${owner_user}\`\`\`
 \`\`\`▢ Jumlah Media : ${post.length}\`\`\`
 \`\`\`▢ Caption :${capt}\`\`\`
 
-_Harap tunggu sebentar, media akan segera dikirim_`
+_Espere un momento, los medios se enviarán pronto_`
                     sendMess(from, caption)
                     for (let i = 0; i < post.length; i++){
                         sendFileFromUrl(from, post[i].url)
@@ -1104,7 +1104,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             case prefix+'fb':
             case prefix+'fbdl':
             case prefix+'facebook':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 if (args.length < 2) return reply(`Kirim perintah *${prefix}fb* url`)
                 if (!isUrl(args[1]) && !args[1].includes('facebook.com')) return reply(mess.error.Iv)
                 reply(mess.wait)
@@ -1122,8 +1122,8 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 break
             case prefix+'yts':
             case prefix+'ytsearch':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Kirim perintah *${prefix}ytsearch* _query_`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
+                if (args.length < 2) return reply(`Enviar pedidos *${prefix}ytsearch* _query_`)
                 reply(mess.wait)
                 yts(q)
                 .then((res) => {
@@ -1132,7 +1132,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
 ┆ *YOUTUBE SEARCH*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 *Hasil Pencarian : ${q}*\n`
                     for (let i = 0; i < 10; i++){
                         txt += `\n─────────────────\n\n\`\`\`▢ Judul : ${yt[i].title}\n\`\`\`▢ ID : ${yt[i].videoId}\n\`\`\`▢ Upload : ${yt[i].ago}\n\`\`\`▢ Ditonton : ${yt[i].views}\n\`\`\`▢ Duration : ${yt[i].timestamp}\n\`\`\`▢ URL : ${yt[i].url}\n`
@@ -1148,8 +1148,8 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             }
                 break
 	case prefix+'tiktok': {
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan ${command} link tiktok`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
+                if (args.length < 2) return reply(`Usar ${command} enlace tiktok`)
                 if (!isUrl(args[1]) && !args[1].includes('tiktok.com')) return reply(mess.error.Iv)
                 reply(mess.wait)
                 axios.get(`https://api.lolhuman.xyz/api/tiktok?apikey=${lolkey}&url=${args[1]}`)
@@ -1159,7 +1159,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
 ┆ TIKTOK NOWM DOWNLOADER
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-Data Berhasil Didapatkan!
+Datos obtenidos con éxito!
 \`\`\`▢ Title : ${title}\`\`\`
 \`\`\`▢ Ext : MP4\`\`\`
 \`\`\`▢ Username / Nickname : ${data.result.author.username} / ${data.result.author.nickname}\`\`\`
@@ -1183,8 +1183,8 @@ Data Berhasil Didapatkan!
                 break
 //------------------< Stalker >-------------------
             case prefix+'igstalk': case prefix+'stalkig':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Kirim perintah *${prefix}igstalk* _username_`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
+                if (args.length < 2) return reply(`Enviar pedidos *${prefix}igstalk* _username_`)
                 reply(mess.wait)
                 getUser(args[1].replace('@', ''))
                 .then((res) => {
@@ -1193,7 +1193,7 @@ Data Berhasil Didapatkan!
 ┆ *INSTAGRAM PROFILE*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Username : ${username}\`\`\`
 \`\`\`▢ Fullname : ${fullName}\`\`\`
 \`\`\`▢ Followers : ${subscribersCount}\`\`\`
@@ -1215,8 +1215,8 @@ Data Berhasil Didapatkan!
             }
                 break
             case prefix+'ghstalk': case prefix+'githubstalk': case prefix+'ghuser':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Kirim perintah *${prefix}ghstalk* _username_`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
+                if (args.length < 2) return reply(`Enviar pedidos *${prefix}ghstalk* _username_`)
                 reply(mess.wait)
                 axios.get(`https://api.github.com/users/${args[1]}`)
                 .then((res) => res.data)
@@ -1226,7 +1226,7 @@ Data Berhasil Didapatkan!
 ┆ *GITHUB USER*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
-*Data Berhasil Didapatkan!*
+*Datos obtenidos con éxito!*
 \`\`\`▢ Username : ${login}\`\`\`
 \`\`\`▢ Name : ${name}\`\`\`
 \`\`\`▢ Followers : ${followers}\`\`\`
@@ -1253,7 +1253,7 @@ Data Berhasil Didapatkan!
                 break
 //------------------< VVIBU >-------------------
 			case prefix+'waifu':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 reply(mess.wait)
 						axios.get('https://waifu.pics/api/sfw/waifu')
 						.then(res => res.data)
@@ -1268,7 +1268,7 @@ Data Berhasil Didapatkan!
                             }
                             break
 			case prefix+'nekonime':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 reply(mess.wait)
 						axios.get('https://waifu.pics/api/sfw/neko')
 						.then(res => res.data)
@@ -1283,7 +1283,7 @@ Data Berhasil Didapatkan!
                             }
                             break
 			case prefix+'megumin':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 reply(mess.wait)
 						axios.get('https://waifu.pics/api/sfw/megumin')
 						.then(res => res.data)
@@ -1298,7 +1298,7 @@ Data Berhasil Didapatkan!
             }
                 break
 			case prefix+'shinobu':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 reply(mess.wait)
 						axios.get('https://waifu.pics/api/sfw/shinobu')
 						.then(res => res.data)
@@ -1313,13 +1313,13 @@ Data Berhasil Didapatkan!
             }
                 break
             case prefix+'loli':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 reply(mess.wait)
                 sendFileFromUrl(from, `https://api.lolhuman.xyz/api/random/loli?apikey=${lolkey}`, '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
                 break
             case prefix+'sagiri':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Su límite ha expirado, envíe ${prefix}limit para verificar el límite`)
                 reply(mess.wait)
                 sendFileFromUrl(from, `https://api.lolhuman.xyz/api/random/sagiri?apikey=${lolkey}`, '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
@@ -1327,7 +1327,7 @@ Data Berhasil Didapatkan!
 //------------------< Premium >-------------------
             case prefix+'addprem':
                 if (!isOwner) return reply(mess.OnlyOwner)
-                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}addprem* @tag waktu\n*${prefix}addprem* nomor waktu\n\nContoh : ${command} @tag 30d`)
+                if (args.length < 2) return reply(`Usar :\n*${prefix}addprem* @Etiquete tiémpo\n*${prefix}addprem* numero de tiémpo\n\nejemplo : ${command} @Etiquete 30d`)
                 if (mentioned.length !== 0){
                     for (let i = 0; i < mentioned.length; i++){
                     _prem.addPremiumUser(mentioned[0], args[2], premium)
@@ -1340,7 +1340,7 @@ Data Berhasil Didapatkan!
                 break
             case prefix+'delprem':
                 if (!isOwner) return reply(mess.OnlyOwner)
-                if (args.length < 2) return reply(`Penggunaan :\n*${prefix}delprem* @tag\n*${prefix}delprem* nomor`)
+                if (args.length < 2) return reply(`Usar :\n*${prefix}delprem* @Etiquete\n*${prefix}delprem* numero`)
                 if (mentioned.length !== 0){
                     for (let i = 0; i < mentioned.length; i++){
                         premium.splice(_prem.getPremiumPosition(mentioned[i], premium), 1)
@@ -1354,7 +1354,7 @@ Data Berhasil Didapatkan!
                 break
             case prefix+'cekprem':
             case prefix+'cekpremium':
-                if (!isPremium) return reply(`Kamu bukan user premium, kirim perintah *${prefix}daftarprem* untuk membeli premium`)
+                if (!isPremium) return reply(`No eres un usuario premium, envía el comando *${prefix}daftarprem* para comprar premium`)
                 let cekvip = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
                 let premiumnya = `*Expire :* ${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s)`
                 reply(premiumnya)
@@ -1376,16 +1376,16 @@ Data Berhasil Didapatkan!
                     for (let i = 0; i < mentioned.length; i++){
                         addBanned(mentioned[0], args[2], ban)
                     }
-                    reply('Sukses')
+                    reply('Objetivo')
                 } else if (isQuotedMsg) {
-                    if (quotedMsg.sender === ownerNumber) return reply(`Tidak bisa ban Owner`)
+                    if (quotedMsg.sender === ownerNumber) return reply(`No se puede prohibir al propietario`)
                     addBanned(quotedMsg.sender, args[1], ban)
-                    reply(`Sukses ban target`)
+                    reply(`Objetivo de neumáticos de éxito`)
                 } else if (!isNaN(args[1])) {
                     addBanned(args[1] + '@s.whatsapp.net', args[2], ban)
-                    reply('Sukses')
+                    reply('Objetivo')
                 } else {
-                    reply(`Kirim perintah ${prefix}ban @tag atau nomor atau reply pesan orang yang ingin di ban`)
+                    reply(`Enviar pedidos ${prefix}ban @etiqueta o número o responde al mensaje de la persona que quieres prohibir`)
                 }
                 break
             case prefix+'unban':
@@ -1394,15 +1394,15 @@ Data Berhasil Didapatkan!
                     for (let i = 0; i < mentioned.length; i++){
                         unBanned(mentioned[i], ban)
                     }
-                    reply('Sukses')
+                    reply('Objetivo')
                 }if (isQuotedMsg) {
                     unBanned(quotedMsg.sender, ban)
-                    reply(`Sukses unban target`) 
+                    reply(`Objetivo unban éxito`) 
                 } else if (!isNaN(args[1])) {
                     unBanned(args[1] + '@s.whatsapp.net', ban)
-                    reply('Sukses')
+                    reply('Objetivo')
                 } else {
-                    reply(`Kirim perintah ${prefix}unban @tag atau nomor atau reply pesan orang yang ingin di unban`)
+                    reply(`Enviar pedidos ${prefix}unban @etiqueta o número o responde al mensaje de la persona que quieres desbloquear`)
                 }
                 break
             case prefix+'listban':
@@ -1434,35 +1434,35 @@ Data Berhasil Didapatkan!
             }
                 break
             case prefix+'buylimit':{
-                if (args.length < 2) return reply(`Kirim perintah *${prefix}buylimit* jumlah limit yang ingin dibeli\n\nHarga 1 limit = $150 balance`)
-                if (args[1].includes('-')) return reply(`Jangan menggunakan -`)
-                if (isNaN(args[1])) return reply(`Harus berupa angka`)
+                if (args.length < 2) return reply(`Enviar pedidos *${prefix}buylimit* límite de cantidad que desea comprar\n\nPrecio 1 límite = saldo de $ 150`)
+                if (args[1].includes('-')) return reply(`No use -`)
+                if (isNaN(args[1])) return reply(`Tiene que ser un número`)
                 let ane = Number(nebal(args[1]) * 150)
-                if (getBalance(sender, balance) < ane) return reply(`Balance kamu tidak mencukupi untuk pembelian ini`)
+                if (getBalance(sender, balance) < ane) return reply(`Tu saldo no es suficiente para esta compra`)
                 kurangBalance(sender, ane, balance)
                 giveLimit(sender, nebal(args[1]), limit)
-                reply(monospace(`Pembeliaan limit sebanyak ${args[1]} berhasil\n\nSisa Balance : $${getBalance(sender, balance)}\nSisa Limit : ${getLimit(sender, limitCount, limit)}/${limitCount}`))
+                reply(monospace(`Límite de compra tanto como ${args[1]} exitoso\n\nSaldo restante : $${getBalance(sender, balance)}\nLímite restante : ${getLimit(sender, limitCount, limit)}/${limitCount}`))
             }
                 break
             case prefix+'buygamelimit':
             case prefix+'buyglimit':{
-                if (args.length < 2) return reply(`Kirim perintah *${prefix}buyglimit* jumlah game limit yang ingin dibeli\n\nHarga 1 game limit = $150 balance\nPajak $1 / $10`)
-                if (args[1].includes('-')) return reply(`Jangan menggunakan -`)
-                if (isNaN(args[1])) return reply(`Harus berupa angka`)
+                if (args.length < 2) return reply(`Enviar pedidos *${prefix}buyglimit* número de límite de juego que desea comprar\n\nPrecio de 1 límite de juego = saldo de $150\nImpuesto $1 / $10`)
+                if (args[1].includes('-')) return reply(`No use -`)
+                if (isNaN(args[1])) return reply(`Tiene que ser un número`)
                 let ane = Number(nebal(args[1]) * 150)
-                if (getBalance(sender, balance) < ane) return reply(`Balance kamu tidak mencukupi untuk pembelian ini`)
+                if (getBalance(sender, balance) < ane) return reply(`Su saldo no es suficiente para esta compra`)
                 kurangBalance(sender, ane, balance)
                 givegame(sender, nebal(args[1]), glimit)
-                reply(monospace(`Pembeliaan game limit sebanyak ${args[1]} berhasil\n\nSisa Balance : $${getBalance(sender, balance)}\nSisa Game Limit : ${cekGLimit(sender, gcount, glimit)}/${gcount}`))
+                reply(monospace(`Limite las compras de juegos tanto como ${args[1]} exitoso\n\nSaldo restante : $${getBalance(sender, balance)}\nLímite de juego restante : ${cekGLimit(sender, gcount, glimit)}/${gcount}`))
             }
                 break
             case prefix+'tictactoe': case prefix+'ttt': case prefix+'ttc':
                 if (!isGroup)return reply(mess.OnlyGrup)
-                if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
-                if (isTicTacToe(from, tictactoe)) return reply(`Masih ada game yg blum selesai`)
-                if (args.length < 2) return reply(`Kirim perintah *${prefix}tictactoe* @tag`)
+                if (isGame(sender, isOwner, gcount, glimit)) return reply(`Tu límite de juego ha terminado`)
+                if (isTicTacToe(from, tictactoe)) return reply(`Aún quedan partidas inconclusas`)
+                if (args.length < 2) return reply(`Enviar pedidos *${prefix}tictactoe* @Etiquete`)
                 if (mentioned.length !== 0){
-						if (mentioned[0] === sender) return reply(`Sad amat main ama diri sendiri`)
+						if (mentioned[0] === sender) return reply(`"Sad está jugando consigo mismo"`)
                         let h = randomNomor(100)
                         mentions(monospace(`@${sender.split('@')[0]} menantang @${mentioned[0].split('@')[0]} untuk bermain TicTacToe\n\nKirim (Y/T) untuk bermain\n\nHadiah : ${h} balance`), [sender, mentioned[0]], false)
                         tictactoe.push({
@@ -1475,32 +1475,32 @@ Data Berhasil Didapatkan!
                         })
                         gameAdd(sender, glimit)
                 } else {
-                    reply(`Kirim perintah *${prefix}tictactoe* @tag`)
+                    reply(`Enviar pedidos *${prefix}tictactoe* @Etiquete`)
                 }
                 break
             case prefix+'delttt':
             case prefix+'delttc':
                 if (!isGroup)return reply(mess.OnlyGrup)
-                if (!isTicTacToe(from, tictactoe)) return reply(`Tidak ada sesi game tictactoe di grup ini`)
+                if (!isTicTacToe(from, tictactoe)) return reply(`No hay una sesión de juego de tictactoe en este grupo`)
                 tictactoe.splice(getPosTic(from, tictactoe), 1)
-                reply(`Berhasil menghapus sesi tictactoe di grup ini`)
+                reply(`Sesión de tictactoe eliminada con éxito en este grupo`)
                 break
             case prefix+'tebakgambar':{
-                if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
-                if (game.isTebakGambar(from, tebakgambar)) return reply(`Masih ada soal yang belum di selesaikan`)
+                if (isGame(sender, isOwner, gcount, glimit)) return reply(`Tu límite de juego se ha agotado`)
+                if (game.isTebakGambar(from, tebakgambar)) return reply(`Aún quedan problemas sin resolver`)
                 let anu = await axios.get(`http://api.lolhuman.xyz/api/tebak/gambar?apikey=${lolkey}`)
                 const petunjuk = anu.data.result.answer.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')
-                sendFileFromUrl(from, anu.data.result.image, monospace(`Silahkan jawab soal berikut ini\n\nPetunjuk : ${petunjuk}\nWaktu : ${gamewaktu}s`), msg)
+                sendFileFromUrl(from, anu.data.result.image, monospace(`Responde las siguientes preguntas\n\nInstrucciones : ${petunjuk}\ntiempo : ${gamewaktu}s`), msg)
                 let anih = anu.data.result.answer.toLowerCase()
                 game.addgambar(from, anih, gamewaktu, tebakgambar)
                 gameAdd(sender, glimit)
             }
                 break
             case prefix+'family100':{
-                if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
-                if (game.isfam(from, family100)) return reply(`Masih ada soal yang belum di selesaikan`)
+                if (isGame(sender, isOwner, gcount, glimit)) return reply(`Tu límite de juego se ha agotado`)
+                if (game.isfam(from, family100)) return reply(`Aún quedan dudas sin resolver`)
                 let anu = await axios.get(`http://api.lolhuman.xyz/api/tebak/family100?apikey=${lolkey}`)
-                reply(`*JAWABLAH SOAL BERIKUT*\n\n*Soal :* ${anu.data.result.question}\n*Total Jawaban :* ${anu.data.result.aswer.length}\n\nWaktu : ${gamewaktu}s`)
+                reply(`*RESPONDA LAS SIGUIENTES PREGUNTAS*\n\n*Preguntas :* ${anu.data.result.question}\n*Total Respuestas :* ${anu.data.result.aswer.length}\n\ntiempo : ${gamewaktu}s`)
                 let anoh = anu.data.result.aswer
                 let rgfds = []
                 for (let i of anoh){
