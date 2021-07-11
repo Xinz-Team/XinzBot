@@ -1,9 +1,9 @@
 {
-    "ownerNumber": "6285158549166@s.whatsapp.net",
-    "ownerName": "aqulzz",
+    "ownerNumber": "593998840594@s.whatsapp.net",
+    "ownerName": "axel-bytu",
     "limitCount": 30,
     "gamewaktu": 60,
-    "botName": "Xinz Bot",
+    "botName": "Binz Bot",
     "pathImg": "./media/Itsuki.jpg",
     "lolkey": "YOUR_APIKEY",
     "sesidInsta": "default",
@@ -14,10 +14,10 @@
         "user": 20
     },
     "emote":{
-        "free": "◽",
-        "owner": "◾",
-        "limit": "🔸",
-        "glimit": "🔹",
-        "prem": "💰"
+        "free": "⚡",
+        "owner": "🔥",
+        "limit": "🩸",
+        "glimit": "💧",
+        "prem": "⚜️"
     }
 }
