@@ -8,7 +8,7 @@
 <a href="https://github.com/zennn08"><img title="Author" src="https://img.shields.io/badge/Author-zennn08-red.svg?style=for-the-badge&logo=github"></a>
 </p>
 <p align="center">
-<a href="https://github.com/Axel-bytu"><img title="Collaborator" src="https://img.shields.io/badge/Collaborator-Axel-bytu-red.svg?style=for-the-badge&logo=github"></a>
+<a href="https://github.com/Axel-bytu"><img title="Collaborator" src="https://img.shields.io/badge/Collaborator-zennn08-red.svg?style=for-the-badge&logo=github"></a>
 </p>
 <p align="center">
 <a href="https://github.com/zennn08/followers"><img title="Followers" src="https://img.shields.io/github/followers/zennn08?color=blue&style=flat-square"></a>
