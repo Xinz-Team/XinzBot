@@ -64,12 +64,13 @@ node main
 ```
 
 ## Edit file
-- Change ownerNumber on [this section](https://github.com/Xinz-Team/XinzBot/blob/df8c08093bfd6133745ff69525d704cebbb920f5/config.json#L2)
-- Change menu on [this section](https://github.com/Xinz-Team/XinzBot/blob/main/message/help.js)
-- Change limit on [this section](https://github.com/Xinz-Team/XinzBot/blob/df8c08093bfd6133745ff69525d704cebbb920f5/config.json#L3)
-- Change limit game on [this section](https://github.com/Xinz-Team/XinzBot/blob/df8c08093bfd6133745ff69525d704cebbb920f5/config.json#L10)
-- Change botName on [this section](https://github.com/Xinz-Team/XinzBot/blob/df8c08093bfd6133745ff69525d704cebbb920f5/config.json#L5)
-- Change lolkey on [this section](https://github.com/Xinz-Team/XinzBot/blob/df8c08093bfd6133745ff69525d704cebbb920f5/config.json#L7)
+- Change ownerNumber on [this section](https://github.com/Xinz-Team/XinzBot/blob/8d32fc24d9252517e995d19046fe06ca4b983055/config.json#L2)
+- Change ownerName on [this section](https://github.com/Xinz-Team/XinzBot/blob/8d32fc24d9252517e995d19046fe06ca4b983055/config.json#L3)
+- Change botName on [this section](https://github.com/Xinz-Team/XinzBot/blob/8d32fc24d9252517e995d19046fe06ca4b983055/config.json#L6)
+- Change Apikey on [this section](https://github.com/Xinz-Team/XinzBot/blob/8d32fc24d9252517e995d19046fe06ca4b983055/config.json#L8)
+- Change fakeReply on [this section](https://github.com/Xinz-Team/XinzBot/blob/8d32fc24d9252517e995d19046fe06ca4b983055/config.json#L9)
+- Change Donasi on [this section](https://github.com/Xinz-Team/XinzBot/blob/8d32fc24d9252517e995d19046fe06ca4b983055/config.json#L12)
+- You can edit list menu on [this section](https://github.com/Xinz-Team/XinzBot/blob/8d32fc24d9252517e995d19046fe06ca4b983055/message/help.js#L147)
 - You can add fiture on [this section](https://github.com/Xinz-Team/XinzBot/blob/main/message/xinz.js)
 
 
