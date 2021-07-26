@@ -379,7 +379,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                     }
                 }
                 //let expiredPrem = `${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s)`
-                fakeimage(newMenu(ucapan, setting.ownerName, setting.botName, prefix, pendaftar, runtime(process.uptime()), pushname, isOwner, isPremium, sisalimit, limitCount, sisaGlimit, gcount, expiredPrem(), tanggal, jam))
+                textImg(newMenu(ucapan, setting.ownerName, setting.botName, prefix, pendaftar, runtime(process.uptime()), pushname, isOwner, isPremium, sisalimit, limitCount, sisaGlimit, gcount, expiredPrem(), tanggal, jam))
             })
             }
                 break
@@ -919,7 +919,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 				break
 				case prefix+'darkjokes': case prefix+'darkjoke': case prefix+'jokes': case prefix+'dark':{
 					if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					axios.get(`https://api.ramlan404.xyz/api/random-darkjoke?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/random/darkjoke?apikey=${apikey}`)
 					.then(({data}) => {
 					sendFileFromUrl(from, data.urlimage, '', msg)
 					limitAdd(sender, limit)
@@ -928,7 +928,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 				break
 				case prefix+'pantun':{
 					if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					axios.get(`https://api.ramlan404.xyz/api/random-pantun?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/random/pantun?apikey=${apikey}`)
 					.then(({data}) => {
 					textImg(data.pantun)
 					})
@@ -936,7 +936,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 				break
 				case prefix+'bucin':{
 					if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					axios.get(`https://api.ramlan404.xyz/api/random-bucin?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/random/bucin?apikey=${apikey}`)
 					.then(({data}) => {
 					textImg(data.bucin)
 					})
@@ -944,7 +944,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 				break
 				case prefix+'cehor': case prefix+'ceritahoror':{
 					if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					axios.get(`https://api.ramlan404.xyz/api/random-cehor?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/random/cehor?apikey=${apikey}`)
 					.then(({data}) => {
 					let { judul, thumb, desc, story } = data
 					let caption = `*${judul}*\n${desc}\n${story}`
@@ -955,7 +955,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 				break
 				case prefix+'fakta':{
 					if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					axios.get(`https://api.ramlan404.xyz/api/random-fakta?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/random/fakta?apikey=${apikey}`)
 					.then(({data}) => {
 					textImg(data.fakta)
 					})
@@ -963,7 +963,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 				break
 				case prefix+'katabijak':{
 					if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					axios.get(`https://api.ramlan404.xyz/api/random-katabijak?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/random/katabijak?apikey=${apikey}`)
 					.then(({data}) => {
 					textImg(data.katabijak)
 					})
@@ -971,7 +971,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 				break
 				case prefix+'motivasi':{
 					if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-					axios.get(`https://api.ramlan404.xyz/api/random-motivasi?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/random/motivasi?apikey=${apikey}`)
 					.then(({data}) => {
 					textImg(data.motivasi)
 					})
@@ -1446,7 +1446,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (args.length < 2) return reply(`Penggunaan ${command} text`)
                 reply(mess.wait)
-                axios.get(`https://api.ramlan404.xyz/api/pinterest?q=kucing&apikey=${apikey}`)
+                axios.get(`https://api-ramlan.herokuapp.com/api/pinterest?q=kucing&apikey=${apikey}`)
                 .then(({data}) => {
                 sendFileFromUrl(from, data.image, '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
@@ -1456,7 +1456,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
 			case prefix+'waifu':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-						axios.get(`https://api.ramlan404.xyz/api/random-waifu?apikey=${apikey}`)
+						axios.get(`https://api-ramlan.herokuapp.com/api/random/waifu?apikey=${apikey}`)
 						.then(({data}) => {
 						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
@@ -1500,7 +1500,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             case prefix+'loli':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-                axios.get(`https://api.ramlan404.xyz/api/random-loli?apikey=${apikey}`)
+                axios.get(`https://api-ramlan.herokuapp.com/api/random/loli?apikey=${apikey}`)
 						.then(({data}) => {
 						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
@@ -1511,7 +1511,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             case prefix+'shota':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-                axios.get(`https://api.ramlan404.xyz/api/random-shota?apikey=${apikey}`)
+                axios.get(`https://api-ramlan.herokuapp.com/api/random/shota?apikey=${apikey}`)
 						.then(({data}) => {
 						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
@@ -1522,7 +1522,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             case prefix+'husbu':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-                axios.get(`https://api.ramlan404.xyz/api/random-husbu?apikey=${apikey}`)
+                axios.get(`https://api-ramlan.herokuapp.com/api/random/husbu?apikey=${apikey}`)
 						.then(({data}) => {
 						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
@@ -1584,7 +1584,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (!isNsfw) return reply('Nsfw group belum aktif')
                 if (!isGroup)return reply(mess.OnlyGrup)
                 reply(mess.wait)
-					axios.get(`https://api.ramlan404.xyz/api/kemonomimi-nsfw?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/kemonomimi-nsfw?apikey=${apikey}`)
 					.then(({data}) => {
 						sendFileFromUrl(from, data.url, 'Neh', msg)
 						})
@@ -1596,7 +1596,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (!isNsfw) return reply('Nsfw group belum aktif')
                 if (!isGroup)return reply(mess.OnlyGrup)
                 reply(mess.wait)
-					axios.get(`https://api.ramlan404.xyz/api/kitsune-nsfw?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/kitsune-nsfw?apikey=${apikey}`)
 					.then(({data}) => {
 						sendFileFromUrl(from, data.url, 'Neh', msg)
 						})
@@ -1609,7 +1609,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (!isNsfw) return reply('Nsfw group belum aktif')
                 if (!isGroup)return reply(mess.OnlyGrup)
                 reply(mess.wait)
-					axios.get(`https://api.ramlan404.xyz/api/yuri-nsfw?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/yuri-nsfw?apikey=${apikey}`)
 					.then(({data}) => {
 						sendFileFromUrl(from, data.url, 'Neh', msg)
 						})
@@ -1622,7 +1622,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (!isNsfw) return reply('Nsfw group belum aktif')
                 if (!isGroup)return reply(mess.OnlyGrup)
                 reply(mess.wait)
-					axios.get(`https://api.ramlan404.xyz/api/boobs-nsfw?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/boobs-nsfw?apikey=${apikey}`)
 					.then(({data}) => {
 						sendFileFromUrl(from, data.url, 'Neh', msg)
 						})
@@ -1634,7 +1634,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (!isNsfw) return reply('Nsfw group belum aktif')
                 if (!isGroup)return reply(mess.OnlyGrup)
                 reply(mess.wait)
-					axios.get(`https://api.ramlan404.xyz/api/kuni-nsfw?apikey=${apikey}`)
+					axios.get(`https://api-ramlan.herokuapp.com/api/kuni-nsfw?apikey=${apikey}`)
 					.then(({data}) => {
 						sendFileFromUrl(from, data.url, 'Neh', msg)
 						})
@@ -1805,7 +1805,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             case prefix+'tebakgambar':{
                 if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
                 if (game.isTebakGambar(from, tebakgambar)) return reply(`Masih ada soal yang belum di selesaikan`)
-                let anu = await axios.get(`https://api.ramlan404.xyz/api/tebak-gambar?apikey=${apikey}`)
+                let anu = await axios.get(`https://api-ramlan.herokuapp.com/api/game/tebak-gambar?apikey=${apikey}`)
                 const petunjuk = anu.data.jawaban.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')
                 sendFileFromUrl(from, anu.data.img, monospace(`Silahkan jawab soal berikut ini\n\nPetunjuk : ${petunjuk}\nWaktu : ${gamewaktu}s`), msg)
                 let anih = anu.data.jawaban.toLowerCase()
@@ -1816,7 +1816,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             case prefix+'family100':{
                 if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
                 if (game.isfam(from, family100)) return reply(`Masih ada soal yang belum di selesaikan`)
-                let anu = await axios.get(`https://api.ramlan404.xyz/api/family100?apikey=${apikey}`)
+                let anu = await axios.get(`https://api-ramlan.herokuapp.com/api/game/family100?apikey=${apikey}`)
                 reply(`*JAWABLAH SOAL BERIKUT*\n\n*Soal :* ${anu.data.soal}\n\nWaktu : ${gamewaktu}s`)
                 let anoh = anu.data.jawaban
                 game.addfam(from, anoh, gamewaktu, family100)
