@@ -86,7 +86,7 @@ moment.tz.setDefault("Asia/Jakarta").locale("id");
 
 module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
     try {
-        const { menu, newMenu, stickerMenu, ownerMenu, groupMenu, sistemMenu, kerangMenu, gameMenu, downloadMenu, searchMenu, stalkMenu, randomMenu, animeMenu, toolsMenu, makerMenu, otherMenu, hentaiMenu, storageMenu } = require("./help");
+        const { menu, newMenu, stickerMenu, ownerMenu, groupMenu, sistemMenu, gabutMenu, gameMenu, downloadMenu, searchMenu, stalkMenu, randomMenu, animeMenu, toolsMenu, makerMenu, otherMenu, hentaiMenu, storageMenu } = require("./help");
         const { type, quotedMsg, isGroup, isQuotedMsg, mentioned, sender, from, fromMe, pushname, chats, isBaileys } = msg
         if (isBaileys) return
         const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
@@ -176,7 +176,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
             if(mime.split("/")[0] === "audio"){
                 mime = Mimetype.mp4Audio
             }
-            return xinz.sendMessage(from, await getBuffer(url), type, {caption: caption, quoted: msg, mimetype: mime, contextInfo: {"mentionedJid": men ? men : []}})
+            return xinz.sendMessage(from, await getBuffer(url), type, {caption: caption, quoted: msg, thumbnail: Buffer.alloc(0), mimetype: mime, contextInfo: {"mentionedJid": men ? men : []}})
         }
         const textImg = (teks) => {
             return xinz.sendMessage(from, teks, text, {quoted: msg, thumbnail: fs.readFileSync(setting.pathImg)})
@@ -195,7 +195,8 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 }
            }
      },
-     caption: teks
+     caption: teks,
+     thumbnail: fs.readFileSync(setting.pathImg)
      })
 }
 
@@ -351,8 +352,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
 					if (stdout) textImg(`${stdout}`)
 				})
             }
-        }
-        
+        }       
         switch(command){
             case 'prefix': case 'cekprefix':{
                 textImg(`${prefix}`)
@@ -379,7 +379,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                     }
                 }
                 //let expiredPrem = `${cekvip.days} day(s) ${cekvip.hours} hour(s) ${cekvip.minutes} minute(s)`
-                textImg(newMenu(ucapan, setting.ownerName, setting.botName, prefix, pendaftar, runtime(process.uptime()), pushname, isOwner, isPremium, sisalimit, limitCount, sisaGlimit, gcount, expiredPrem(), tanggal, jam))
+                fakeimage(newMenu(ucapan, setting.ownerName, setting.botName, prefix, pendaftar, runtime(process.uptime()), pushname, isOwner, isPremium, sisalimit, limitCount, sisaGlimit, gcount, expiredPrem(), tanggal, jam))
             })
             }
                 break
@@ -399,8 +399,8 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 textImg(sistemMenu(prefix, setting.ownerName))
             }
                 break
-            case prefix+'kerangmenu':{
-                textImg(kerangMenu(prefix, setting.ownerName))
+            case prefix+'gabutmenu':{
+                textImg(gabutMenu(prefix, setting.ownerName))
             }
                 break
             case prefix+'gamemenu': case prefix+'menugame':{
@@ -597,6 +597,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 }
             }
                 break
+            case prefix+'tomp4':
             case prefix+'toimg':
             case prefix+'tomedia':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
@@ -604,7 +605,28 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 let encmedia = JSON.parse(JSON.stringify(msg).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 				let media = await xinz.downloadAndSaveMediaMessage(encmedia)
 				if (quotedMsg.stickerMessage.isAnimated === true){
-                    reply(`Blum support sticker gif :/`)
+                    let outGif = getRandom('.gif')
+                    let outMp4 = getRandom('.mp4')
+                    exec(`convert ${media} ${outGif}`, (err) => {
+                        if (err) {
+                            console.log(err)
+                            fs.unlinkSync(media)
+                            return reply(`Error bruh`)
+                        }
+                        exec(`ffmpeg -i ${outGif} -vf "crop=trunc(iw/2)*2:trunc(ih/2)*2" -b:v 0 -crf 25 -f mp4 -vcodec libx264 -pix_fmt yuv420p ${outMp4}`, (err) => {
+                            if (err) {
+                                console.log(err)
+                                fs.unlinkSync(media)
+                                fs.unlinkSync(outGif)
+                                return reply(`Error`)
+                            }
+                            xinz.sendVideo(from, fs.readFileSync(outMp4), 'Nih', msg)
+                            .then(() => {
+                                fs.unlinkSync(outMp4)
+                                limitAdd(sender, limit)
+                            })
+                        })
+                    })
 					} else {
                     reply(mess.wait)
 					let ran = getRandom('.png')
@@ -659,14 +681,50 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
             .catch(() => reply(`Apikey invalid, mau buy apikey?\nchat wa.me/6285559240360`))
             }
             break
+            case prefix+'ebase64':
+                if (!q) return reply(`Format salah!\n\nKirim perintah: ${prefix}ebase64 *text*\nContoh: ${prefix}ebase64 helloworld`)
+                if (q.length > 2048) return reply('Maximal 2.048 String!')
+                reply(Buffer.from(q).toString('base64'))
+                break
+            case prefix+'debase64':
+                if (!q) return reply(`Format salah!\n\nKirim perintah: ${prefix}debase64 *encrypt base64*\nContoh: ${prefix}debase64 aGVsbG93b3JsZA==`)
+                if (q.length > 2048) return reply('Maximal 2.048 String!')
+                reply(Buffer.from(q, 'base64').toString('ascii'))
+                break
+            case prefix+'ehex':
+                if (!q) return reply(`Format salah!\n\nKirim perintah: ${prefix}ehex *text*\nContoh: ${prefix}ehex Hello world`)
+                if (q.length > 2048) return reply('Maximal 2.048 String!')
+                var convertHex = require('amrhextotext')
+                reply(convertHex.textToHex(q))
+                break
+            case prefix+'dehex':
+                if (!q) return reply(`Format salah!\n\nKirim perintah: ${prefix}dehex *encrypt hex*\nContoh: ${prefix}dehex 68656c6c6f20776f726c64`)
+                if (q.length > 2048) return reply('Maximal 2.048 String!')
+                var convertHex = require('amrhextotext')
+                reply(convertHex.hexToUtf8(q))
+                break
+            case prefix+'ebinary':
+                if (!q) return reply(`Format salah!\n\nKirim perintah: ${prefix}ebinary *text*\nContoh: ${prefix}ebinary hello world`)
+                if (q.length > 2048) return reply('Maximal 2.048 String!')
+                    function encodeBinary(char) {
+                        return char.split("").map(str => {
+                            const converted = str.charCodeAt(0).toString(2);
+                            return converted.padStart(8, "0");
+                        }).join(" ")
+                    }
+                reply(encodeBinary(q))
+                break
+            case prefix+'debinary':
+                if (!q) return reply(`Format salah!\n\nKirim perintah: ${prefix}debinary *text*\nContoh: ${prefix}debinary 01110100 01100101 01110011`)
+                if (q.length > 2048) return reply('Maximal 2.048 String!')
+                    function decodebinary(char) {
+                        return char.split(" ").map(str => String.fromCharCode(Number.parseInt(str, 2))).join("");
+                    }
+                reply(decodebinary(q))
+                break
 //------------------< NULIS >---------------------
-            case prefix+'nulis':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Kirim perintah *${prefix}nulis* teks`)
-                reply(mess.wait)
-                sendFileFromUrl(from, `https://api.zeks.xyz/api/nulis?apikey=apivinz&text=${q}`, 'Jangan mager kak:v', msg)
-                .catch(() => reply(mess.error.api))
-                }
+            case prefix+'nulis':
+                reply(`*Pilihan*\n${prefix}nuliskiri\n${prefix}nuliskanan\n${prefix}foliokiri\n${prefix}foliokanan`)
                 break
             case prefix+'nuliskiri':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
@@ -692,7 +750,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 ])
                 .on('error', () => reply(mess.error.api))
                 .on('exit', () => {
-                    xinz.sendMessage(from, fs.readFileSync('./media/nulis/images/buku/setelahkiri.jpg'), image, {quoted: msg, caption: `Jangan malas pak...`})
+                    xinz.sendMessage(from, fs.readFileSync('./media/nulis/images/buku/setelahkiri.jpg'), image, {quoted: msg, caption: `Jangan malas pak...`, thumbnail: Buffer.alloc(0)})
                     limitAdd(sender, limit)
                 })
             }
@@ -721,7 +779,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 ])
                 .on('error', () => reply(mess.error.api))
                 .on('exit', () => {
-                    xinz.sendMessage(from, fs.readFileSync('./media/nulis/images/buku/setelahkanan.jpg'), image, {quoted: msg, caption: `Jangan malas pak...`})
+                    xinz.sendMessage(from, fs.readFileSync('./media/nulis/images/buku/setelahkanan.jpg'), image, {quoted: msg, caption: `Jangan malas pak...`, thumbnail: Buffer.alloc(0)})
                     limitAdd(sender, limit)
                 })
             }
@@ -750,7 +808,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 ])
                 .on('error', () => reply(mess.error.api))
                 .on('exit', () => {
-                    xinz.sendMessage(from, fs.readFileSync('./media/nulis/images/folio/setelahkiri.jpg'), image, {quoted: msg, caption: `Jangan malas pak...`})
+                    xinz.sendMessage(from, fs.readFileSync('./media/nulis/images/folio/setelahkiri.jpg'), image, {quoted: msg, caption: `Jangan malas pak...`, thumbnail: Buffer.alloc(0)})
                     limitAdd(sender, limit)
                 })
             }
@@ -779,49 +837,100 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 ])
                 .on('error', () => reply(mess.error.api))
                 .on('exit', () => {
-                    xinz.sendMessage(from, fs.readFileSync('./media/nulis/images/folio/setelahkanan.jpg'), image, {quoted: msg, caption: `Jangan malas pak...`})
+                    xinz.sendMessage(from, fs.readFileSync('./media/nulis/images/folio/setelahkanan.jpg'), image, {quoted: msg, caption: `Jangan malas pak...`, thumbnail: Buffer.alloc(0)})
                     limitAdd(sender, limit)
                 })
             }
                 break
+            
 //------------------< Text Marker >-------------------
-            case prefix+'blackpink': case prefix+'bp':
+            case prefix+'harta': case prefix+'hartatahta': case prefix+'tahta':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan ${command} text`)
-                reply(mess.wait)
-                sendFileFromUrl(from, `https://api.zeks.xyz/api/logobp?apikey=apivinz&text=${q}`, '', msg).catch(() => reply(mess.error.api))
-                limitAdd(sender, limit)
-                break
-            case prefix+'glitch': case prefix+'glitchtext':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan ${command} text1|text2`)
-                if (!q.includes("|")) return reply(`Penggunaan ${command} text1|text2`)
-                reply(mess.wait)
-                sendFileFromUrl(from, `https://api.zeks.xyz/api/gtext?apikey=apivinz&text1=${q.split("|")[0]}&text2=${q.split("|")[1]}`, '', msg).catch(() => reply(mess.error.api))
-                limitAdd(sender, limit)
-                break
-            case prefix+'neon': case prefix+'neontext':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan ${command} text`)
-                reply(mess.wait)
-                sendFileFromUrl(from, `https://api.zeks.xyz/api/bneon?apikey=apivinz&text=${q}`, '', msg).catch(() => reply(mess.error.api))
-                limitAdd(sender, limit)
-                break
-            case prefix+'harta': case prefix+'hartatahta': case prefix+'tahta':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan ${command} text`)
+                if (args.length < 2) return reply(`Penggunaan ${command} text\n\nContoh : ${command} Rara`)
                 reply('[❗] Hirti Tihti Tai Anjg :v')
-                xinz.sendImage(from, await getBuffer(`https://api.zeks.xyz/api/hartatahta?apikey=apivinz&text=${q}`), '', msg).catch(() => reply(mess.error.api))
+                xinz.sendImage(from, await getBuffer(`https://api-ramlan.herokuapp.com/api/other/tahta?q=${args[1]}&apikey=${apikey}`), '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
+                }
                 break
-            case prefix+'pornhub': case prefix+'phlogo':
+//>>> TEXT PRO ME
+                case prefix+'neon':
+                case prefix+'matrix':
+                case prefix+'blackpink':
+                case prefix+'halloween':
+                case prefix+'thundername':
+                case prefix+'devilwings':
+                case prefix+'cloudtext':
+                case prefix+'bloodtext':
+                case prefix+'bloodtext2':
+                case prefix+'steeltext':
+                case prefix+'lavatext':
+                case prefix+'toxiclogo':
+                case prefix+'dropwater':
+                case prefix+'metaldark':
+                case prefix+'sandwrite':
+                case prefix+'3dwater':
+                case prefix+'graffiti':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan ${command} text1|text2`)
-                if (!q.includes("|")) return reply(`Penggunaan ${command} text1|text2`)
+                if (args.length < 2) return reply(`Penggunaan ${command} text\n\nContoh : ${command} xinz`)
                 reply(mess.wait)
-                sendFileFromUrl(from, `https://api.zeks.xyz/api/phlogo?apikey=apivinz&text1=${q.split("|")[0]}&text2=${q.split("|")[1]}`, '', msg).catch(() => reply(mess.error.api))
+                xinz.sendImage(from, await getBuffer(`https://api-ramlan.herokuapp.com/api/textpro/${command.slice(1)}?apikey=${apikey}&text=${q}`), '', msg).catch(() => reply(mess.error.api))
                 limitAdd(sender, limit)
-                break
+                }
+                    break
+                case prefix+'graffiti2':
+                case prefix+'phlogo':
+                case prefix+'glitch':                
+                case prefix+'graffiti3':
+                case prefix+'layeredtext':
+                case prefix+'vintage':
+                case prefix+'3dspace':
+                case prefix+'stonetext':
+                case prefix+'avengers':
+                case prefix+'marvellogo':
+                case prefix+'3dmetal':
+                case prefix+'lionlogo':
+                case prefix+'wolflogo':
+                case prefix+'ninjalogo':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length < 2) return reply(`Penggunaan ${command} text1|text2\n\nContoh : ${command} Ramlan|Rara`)
+                if (!q.includes("|")) return reply(`Penggunaan ${command} text1|text2\n\nContoh : ${command} Ramlan|Rara`)
+                reply(mess.wait)
+                xinz.sendImage(from, await getBuffer(`https://api-ramlan.herokuapp.com/api/textpro2/${command.slice(1)}?apikey=${apikey}&text1=${q.split("|")[0]}&text2=${q.split("|")[1]}`), '', msg).catch(() => reply(mess.error.api))
+                limitAdd(sender, limit)
+                }
+                    break
+//>>> PHOTOOXY
+                case prefix+'shadowtext':
+                case prefix+'smoketext':
+                case prefix+'romancetext':
+                case prefix+'carvedwood':
+                case prefix+'harrypotter':
+                case prefix+'flamingtext':
+                case prefix+'falleaves':
+                case prefix+'underwater':
+                case prefix+'wolfmetal':
+                case prefix+'woodboard':
+                case prefix+'undergrass':
+                case prefix+'coffetext':
+                case prefix+'lovetext':
+                case prefix+'burnpaper':
+                case prefix+'lovemessage':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length < 2) return reply(`Penggunaan ${command} text\n\nContoh : ${command} xinz`)
+                reply(mess.wait)
+                xinz.sendImage(from, await getBuffer(`https://api-ramlan.herokuapp.com/api/photooxy/${command.slice(1)}?apikey=${apikey}&text=${q}`), '', msg).catch(() => reply(mess.error.api))
+                limitAdd(sender, limit)
+                }
+                    break
+                case prefix+'pubglogo':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length < 2) return reply(`Penggunaan ${command} text1|text2\n\nContoh : ${command} Ramlan|Rara`)
+                if (!q.includes("|")) return reply(`Penggunaan ${command} text1|text2\n\nContoh : ${command} Ramlan|Rara`)
+                reply(mess.wait)
+                xinz.sendImage(from, await getBuffer(`https://api-ramlan.herokuapp.com/api/photooxy/pubglogo?apikey=${apikey}&text1=${q.split("|")[0]}&text2=${q.split("|")[1]}`), '', msg).catch(() => reply(mess.error.api))
+                limitAdd(sender, limit)
+                }
+                    break
 //------------------< Math Random >-------------------
 				case prefix+'ganteng':
 					if (!isGroup)return reply(mess.OnlyGrup)
@@ -1257,39 +1366,26 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                 }
             }
                 break
-            case prefix+'ig':
             case prefix+'igdl':
-            case prefix+'instagram':{
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+            case prefix+'instagram':
+            case prefix+'ig': {
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (args.length < 2) return reply(`Kirim perintah *${prefix}ig* link ig`)
                 if (!isUrl(args[1]) && !args[1].includes('instagram.com')) return reply(mess.error.Iv)
                 reply(mess.wait)
-                getPost(args[1].split('/')[4])
-                .then((res) => {
-                    let { owner_user, post, date, capt } = res
-                    let caption = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
-┆ *INSTAGRAM MEDIA*
-└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
-
-*Data Berhasil Didapatkan!*
-\`\`\`▢ Owner : ${owner_user}\`\`\`
-\`\`\`▢ Jumlah Media : ${post.length}\`\`\`
-\`\`\`▢ Caption :${capt}\`\`\`
-
-_Harap tunggu sebentar, media akan segera dikirim_`
-                    sendMess(from, caption)
-                    for (let i = 0; i < post.length; i++){
-                        sendFileFromUrl(from, post[i].url)
-                    }
-                    limitAdd(sender, limit)
-                })
-                .catch((err) => {
-                    sendMess(ownerNumber, 'IG Download Error : ' + err)
-                    console.log(color('[IG Download]', 'red'), err)
-                    reply(mess.error.api)
-                })
+                axios.get(`https://api-ramlan.herokuapp.com/api/ig-dl?url=${args[1]}&apikey=${apikey}`)
+                    .then(({
+                        data
+                    }) => {
+                        sendFileFromUrl(from, data.linkdownload, '', msg)
+                    })
+                    .catch(err => {
+                        sendMess(ownerNumber, 'IG Error : ' + err)
+                        console.log(color('[IG]', 'red'), err)
+                        reply(mess.error.api)
+                    })
             }
-                break
+            break
             case prefix+'fb':
             case prefix+'fbdl':
             case prefix+'facebook':{
@@ -1344,7 +1440,7 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 axios.get(`https://api-ramlan.herokuapp.com/api/tiktok?url=${args[1]}&apikey=${apikey}`)
                 .then(({data}) => {
                 console.log(data)
-                sendFileFromUrl(from, data.result.nowm, '', msg)
+                sendFileFromUrl(from, data.result.nowatermark, '', msg)
                     limitAdd(sender, limit)
                 })
                 .catch((err) => {
@@ -1377,25 +1473,21 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (args.length < 2) return reply(`Kirim perintah *${prefix}igstalk* _username_`)
                 reply(mess.wait)
-                getUser(args[1].replace('@', ''))
-                .then((res) => {
-                    let { username, biography, fullName, subscribersCount, subscribtions, highlightCount, isBusinessAccount, isPrivate, isVerified, profilePicHD, postsCount } = res
+                axios.get(`https://api-ramlan.herokuapp.com/api/igstalk?username=${args[1]}&apikey=${apikey}`)
+                .then(({data}) => {
+                let { username, fullname, Urlprofile, biography, follower_count, following_count, post_count } = data
                     let caption = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *INSTAGRAM PROFILE*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
 *Data Berhasil Didapatkan!*
 \`\`\`▢ Username : ${username}\`\`\`
-\`\`\`▢ Fullname : ${fullName}\`\`\`
-\`\`\`▢ Followers : ${subscribersCount}\`\`\`
-\`\`\`▢ Following : ${subscribtions}\`\`\`
-\`\`\`▢ Post Count : ${postsCount}\`\`\`
-\`\`\`▢ HighlightCount : ${highlightCount}\`\`\`
-\`\`\`▢ PrivateAccount : ${isPrivate ? 'Yes' : 'No'}\`\`\`
-\`\`\`▢ VerifiedAccount : ${isVerified ? 'Yes' : 'No'}\`\`\`
-\`\`\`▢ BusinessAccount : ${isBusinessAccount ? 'Yes' : 'No'}\`\`\`
+\`\`\`▢ Fullname : ${fullname}\`\`\`
+\`\`\`▢ Followers : ${follower_count}\`\`\`
+\`\`\`▢ Following : ${following_count}\`\`\`
+\`\`\`▢ Post Count : ${post_count}\`\`\`
 \`\`\`▢ Biography :\`\`\` \n${biography}`
-                    sendFileFromUrl(from, profilePicHD, caption, msg)
+                    sendFileFromUrl(from, Urlprofile, caption, msg)
                     limitAdd(sender, limit)
                 })
                 .catch((err) => {
@@ -1443,47 +1535,100 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             }
                 break
             case prefix+'pinterest':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (args.length < 2) return reply(`Penggunaan ${command} text`)
-                reply(mess.wait)
-                axios.get(`https://api-ramlan.herokuapp.com/api/pinterest?q=kucing&apikey=${apikey}`)
-                .then(({data}) => {
-                sendFileFromUrl(from, data.image, '', msg).catch(() => reply(mess.error.api))
-                limitAdd(sender, limit)
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                if (args.length === 1) return reply(`Kirim perintah *${prefix}pinterest query*`)
+
+                async function pinterestSearch(query) {
+                    return new Promise((resolve, reject) => {
+                        fetch(`https://www.pinterest.com/resource/BaseSearchResource/get/?source_url=%2Fsearch%2Fpins%2F%3Fq%3D${query}&data=%7B%22options%22%3A%7B%22isPrefetch%22%3Afalse%2C%22query%22%3A%22${query}%22%2C%22scope%22%3A%22pins%22%2C%22no_fetch_context_on_resource%22%3Afalse%7D%2C%22context%22%3A%7B%7D%7D&_=1619980301559`, {
+                            "headers": {
+                                "accept": "application/json, text/javascript, */*, q=0.01",
+                                "accept-language": "en-US,en;q=0.9",
+                                "cache-control": "no-cache",
+                                "pragma": "no-cache",
+                                "sec-fetch-dest": "empty",
+                                "sec-fetch-mode": "cors",
+                                "sec-fetch-site": "same-origin",
+                                "sec-gpc": "1",
+                                "x-app-version": "9a236a4",
+                                "x-pinterest-appstate": "active",
+                                "x-requested-with": "XMLHttpRequest"
+                            },
+                            "referrer": "https://www.pinterest.com/",
+                            "referrerPolicy": "origin",
+                            "body": null,
+                            "method": "GET",
+                            "mode": "cors"
+                        }).then((res) => res.json())
+                            .then((json) => {
+                                const generatepin = json.resource_response.data.results[Math.floor(Math.random() * (json.resource_response.data.results.length))]
+                                var result = [];
+                                result.push({
+                                    link: generatepin.images.orig.url
+                                })
+                                resolve(result)
+                            }).catch(reject)
+                    })
+                }
+
+                const pinterest = (query) => new Promise((resolve, reject) => {
+                    pinterestSearch(query).then((data) => {
+                        resolve({
+                            status: 200,
+                            image: data[0].link
+                        })
+                    }).catch(reject)
                 })
+
+                pinterest(q).then(async(res) => {
+                    await reply(mess.wait)
+                    await sendFileFromUrl(from, res.image, `Hasil Pencarian: ${q}`, msg)
+                }).catch(async(err) => {
+                    sendMess(ownerNumber, 'Pinterest Error : ' + err)
+                    console.log(color('[Pinterest]', 'red'), err)
+                    reply(mess.error.api)
+                })
+                break
+            case prefix+'readmore':
+                var more = String.fromCharCode(8206)
+                var readMore = more.repeat(4001)
+                const rmoreteks1 = q.split('|')[0] ? q.split('|')[0] : q
+                const rmoreteks2 = q.split('|')[1] ? q.split('|')[1] : ''
+                reply(`${rmoreteks1}${readMore}${rmoreteks2}`)
                 break
 //------------------< VVIBU >-------------------
 			case prefix+'waifu':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-						axios.get(`https://api-ramlan.herokuapp.com/api/random/waifu?apikey=${apikey}`)
+						axios.get(`https://api-ramlan.herokuapp.com/api/waifu?apikey=${apikey}`)
 						.then(({data}) => {
 						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
 						}
                       break
 			case prefix+'nekonime':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-						axios.get('https://waifu.pics/api/sfw/neko')
+						axios.get(`https://api-ramlan.herokuapp.com/api/neko?apikey=${apikey}`)
 						.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
+						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
 						}
                       break
 			case prefix+'megumin':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-						axios.get('https://waifu.pics/api/sfw/megumin')
-						.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
+						sendFileFromUrl(from, `https://api-ramlan.herokuapp.com/api/megumin?apikey=${apikey}`, 'Neh', msg)
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
+						}
+                      break
+			case prefix+'sagiri':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                reply(mess.wait)
+						sendFileFromUrl(from, `https://api-ramlan.herokuapp.com/api/sagiri?apikey=${apikey}`, 'Neh', msg)
+						limitAdd(sender, limit)
 						}
                       break
 			case prefix+'shinobu':{
@@ -1494,152 +1639,69 @@ _Harap tunggu sebentar, media akan segera dikirim_`
 						sendFileFromUrl(from, data.url, 'Neh', msg)
 						})
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
 						}
                       break
             case prefix+'loli':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-                axios.get(`https://api-ramlan.herokuapp.com/api/random/loli?apikey=${apikey}`)
+                axios.get(`https://api-ramlan.herokuapp.com/api/loli?apikey=${apikey}`)
 						.then(({data}) => {
 						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
 						}
                       break
             case prefix+'shota':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-                axios.get(`https://api-ramlan.herokuapp.com/api/random/shota?apikey=${apikey}`)
+                axios.get(`https://api-ramlan.herokuapp.com/api/shota?apikey=${apikey}`)
 						.then(({data}) => {
 						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
 						}
                       break
             case prefix+'husbu':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 reply(mess.wait)
-                axios.get(`https://api-ramlan.herokuapp.com/api/random/husbu?apikey=${apikey}`)
+                axios.get(`https://api-ramlan.herokuapp.com/api/husbu?apikey=${apikey}`)
 						.then(({data}) => {
 						sendFileFromUrl(from, data.link, 'Neh', msg)
 						})
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
 						}
                       break
 //------------------< nsfw >-------------------
-            case 'randomhentong':
+            case prefix+'randomhentong':
+            case prefix+'ero':
+            case prefix+'echi':
+            case prefix+'ahegao':
+            case prefix+'trap':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (!isNsfw) return reply('Nsfw group belum aktif')
                 if (!isGroup)return reply(mess.OnlyGrup)
                 reply(mess.wait)
-						axios.get('https://waifu.pics/api/nsfw/waifu')
-						.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
+						sendFileFromUrl(from, `https://api-ramlan.herokuapp.com/api/nsfw/${command.slice(1)}?apikey=${apikey}`, 'Neh', msg)
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
+						}						
                       break
-            case 'nsfwneko':
+            case prefix+'neko':
+            case prefix+'blowjob':
+            case prefix+'kemonomimi':
+            case prefix+'kitsune':
+            case prefix+'yuri':
+            case prefix+'boobs':
+            case prefix+'kuni':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (!isNsfw) return reply('Nsfw group belum aktif')
                 if (!isGroup)return reply(mess.OnlyGrup)
                 reply(mess.wait)
-						axios.get('https://waifu.pics/api/nsfw/neko')
-						.then(({data}) => {
+                axios.get(`https://api-ramlan.herokuapp.com/api/nsfw/${command.slice(1)}?apikey=${apikey}`)
+                .then(({data}) => {
 						sendFileFromUrl(from, data.url, 'Neh', msg)
 						})
 						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
-                      break
-            case 'nsfwtrap':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (!isNsfw) return reply('Nsfw group belum aktif')
-                if (!isGroup)return reply(mess.OnlyGrup)
-                reply(mess.wait)
-						axios.get('https://waifu.pics/api/nsfw/trap')
-						.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
-						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
-                      break
-            case 'nsfwblowjob':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (!isNsfw) return reply('Nsfw group belum aktif')
-                if (!isGroup)return reply(mess.OnlyGrup)
-                reply(mess.wait)
-						axios.get('https://waifu.pics/api/nsfw/blowjob')
-						.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
-						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
-                      break								
-					case 'kemonomimi':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (!isNsfw) return reply('Nsfw group belum aktif')
-                if (!isGroup)return reply(mess.OnlyGrup)
-                reply(mess.wait)
-					axios.get(`https://api-ramlan.herokuapp.com/api/kemonomimi-nsfw?apikey=${apikey}`)
-					.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
-						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
-                      break
-					case 'nsfwkitsune':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (!isNsfw) return reply('Nsfw group belum aktif')
-                if (!isGroup)return reply(mess.OnlyGrup)
-                reply(mess.wait)
-					axios.get(`https://api-ramlan.herokuapp.com/api/kitsune-nsfw?apikey=${apikey}`)
-					.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
-						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
-                      break
-
-					case 'nsfwyuri':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (!isNsfw) return reply('Nsfw group belum aktif')
-                if (!isGroup)return reply(mess.OnlyGrup)
-                reply(mess.wait)
-					axios.get(`https://api-ramlan.herokuapp.com/api/yuri-nsfw?apikey=${apikey}`)
-					.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
-						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
-                      break
-					
-					case 'nsfwboobs':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (!isNsfw) return reply('Nsfw group belum aktif')
-                if (!isGroup)return reply(mess.OnlyGrup)
-                reply(mess.wait)
-					axios.get(`https://api-ramlan.herokuapp.com/api/boobs-nsfw?apikey=${apikey}`)
-					.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
-						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
-                      break
-					case 'nsfwkuni':
-                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                if (!isNsfw) return reply('Nsfw group belum aktif')
-                if (!isGroup)return reply(mess.OnlyGrup)
-                reply(mess.wait)
-					axios.get(`https://api-ramlan.herokuapp.com/api/kuni-nsfw?apikey=${apikey}`)
-					.then(({data}) => {
-						sendFileFromUrl(from, data.url, 'Neh', msg)
-						})
-						limitAdd(sender, limit)
-						.catch(() => reply('Error!'))
+						}						
                       break
 //------------------< Premium >-------------------
             case prefix+'addprem':
@@ -1739,13 +1801,29 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 mentions(txtx, menx, true)
                 break
 //------------------< Game >-------------------
-                case prefix+'topbalance':{
+            case prefix+'topglobal':{
                 balance.sort((a, b) => (a.balance < b.balance) ? 1 : -1)
-                let top = '*── 「 TOP BALANCE 」 ──*\n\n'
+                let top = '*── 「 TOPGLOBAL 」 ──*\n\n'
                 let arrTop = []
                 for (let i = 0; i < 10; i ++){
                     top += `${i + 1}. @${balance[i].id.split("@")[0]}\n=> Balance : $${balance[i].balance}\n\n`
                     arrTop.push(balance[i].id)
+                }
+                mentions(top, arrTop, true)
+            }
+                break
+            case prefix+'toplocal':{
+                if (!isGroup)return reply(mess.OnlyGrup)
+                balance.sort((a, b) => (a.balance < b.balance) ? 1 : -1)
+                let top = '*── 「 TOPLOCAL 」 ──*\n\n'
+                let arrTop = []
+                let anggroup = groupMembers.map(a => a.jid)
+                for (let i = 0; i < balance.length; i ++){
+                    if (arrTop.length >= 10) continue
+                    if (anggroup.includes(balance[i].id)) {
+                        top += `${i + 1}. @${balance[i].id.split("@")[0]}\n=> Balance : $${balance[i].balance}\n\n`
+                        arrTop.push(balance[i].id)
+                    }
                 }
                 mentions(top, arrTop, true)
             }
@@ -1801,6 +1879,47 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 if (!isTicTacToe(from, tictactoe)) return reply(`Tidak ada sesi game tictactoe di grup ini`)
                 tictactoe.splice(getPosTic(from, tictactoe), 1)
                 reply(`Berhasil menghapus sesi tictactoe di grup ini`)
+                break
+            case prefix+'suit':
+                if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
+                if (args.length < 2) return reply(`Penggunaan ${command} gunting/kertas/batu\n\nContoh : ${command} gunting`)
+                let suit = ["gunting", "batu", "kertas"];
+                let isSuit = suit.includes(q)
+                if (isSuit){
+                    let suit1 = suit[Math.floor(Math.random() * (suit.length))]
+                    let hadi = randomNomor(30)
+                    if (q === suit[0]){
+                        if (suit1 === "gunting"){
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nseri`)
+                        } else if (suit1 === "batu"){
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nKamu kalah`)
+                        } else {
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nKamu menang\nHadiah : ${hadi} balance`)
+                            addBalance(sender, hadi, balance)
+                        }
+                    } else if (q === suit[1]){
+                        if (suit1 === "batu"){
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nSeri`)
+                        } else if (suit1 === "kertas"){
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nKamu kalah`)
+                        } else {
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nKamu menang\nHadiah : ${hadi} balance`)
+                            addBalance(sender, hadi, balance)
+                        }
+                    } else if (q === suit[2]){
+                        if (suit1 === "kertas"){
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nSeri`)
+                        } else if (suit1 === "gunting"){
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nKamu kalah`)
+                        } else {
+                            reply(`Kamu ${q}\nKomputer  ${suit1}\nKamu menang\nHadiah : ${hadi} balance`)
+                            addBalance(sender, hadi, balance)
+                        }
+                    }
+                    gameAdd(sender, glimit)
+                } else {
+                    reply(body.replace(args[1], "*"+args[1]+"*")+'\n\n'+`Tidak ada pilihan ${args[1]}`+`\nContoh : ${command} gunting`)
+                }
                 break
             case prefix+'tebakgambar':{
                 if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
@@ -2189,6 +2308,24 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                 fs.writeFileSync('./database/mute.json', JSON.stringify(mute))
                 reply(`Bot berhasil dimute di chat ini`)
                 break
+            case prefix+'nsfw':
+                if (!isGroup) return reply(mess.OnlyGrup)
+                if (!isGroupAdmins && !isOwner) return reply(mess.GrupAdmin)
+                if (args.length === 1) return reply(`Pilih enable atau disable\nContoh : ${prefix}welcome enable`)
+                if (args[1].toLowerCase() === 'enable'){
+                    if (isNsfw) return reply(`Udah aktif`)
+                    nsfw.push(from)
+					fs.writeFileSync('./database/nsfw.json', JSON.stringify(nsfw))
+					reply('Nsfw aktif')
+                } else if (args[1].toLowerCase() === 'disable'){
+                    let anu = nsfw.indexOf(from)
+                    nsfw.splice(anu, 1)
+                    fs.writeFileSync('./database/nsfw.json', JSON.stringify(nsfw))
+                    reply('Welcome nonaktif')
+                } else {
+                    reply(`Pilih enable atau disable\nContoh : ${prefix}nsfw enable`)
+                }
+                break
             case prefix+'antilink':
                 if (!isGroup) return reply(mess.OnlyGrup)
                 if (!isGroupAdmins && !isOwner) return reply(mess.GrupAdmin)
@@ -2263,7 +2400,10 @@ _Harap tunggu sebentar, media akan segera dikirim_`
                     reply(`Pilih enable atau disable\nContoh : ${prefix}left enable`)
                 }
                 break
-            case prefix+'sound1': case prefix+'sound':{
+            case prefix+'sound': case prefix+'music':
+                reply(`*Pilihan*\n${prefix}sound1\n${prefix}sound2\n${prefix}sound3\n${prefix}sound4\n${prefix}sound5\n${prefix}sound6\n${prefix}sound7\n${prefix}sound8\n${prefix}sound9\n${prefix}sound10`)
+                break
+            case prefix+'sound1':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 let son = fs.readFileSync('./media/music/sound1.mp3')
                 xinz.sendMessage(from, son, audio, { quoted: msg })              
@@ -2308,6 +2448,27 @@ _Harap tunggu sebentar, media akan segera dikirim_`
             case prefix+'sound7':{
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 let son = fs.readFileSync('./media/music/sound7.mp3')
+                xinz.sendMessage(from, son, audio, { quoted: msg })              
+                limitAdd(sender, limit)
+                }
+                break
+            case prefix+'sound8':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                let son = fs.readFileSync('./media/music/sound8.mp3')
+                xinz.sendMessage(from, son, audio, { quoted: msg })              
+                limitAdd(sender, limit)
+                }
+                break
+            case prefix+'sound9':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                let son = fs.readFileSync('./media/music/sound9.mp3')
+                xinz.sendMessage(from, son, audio, { quoted: msg })              
+                limitAdd(sender, limit)
+                }
+                break
+            case prefix+'sound10':{
+                if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+                let son = fs.readFileSync('./media/music/sound10.mp3')
                 xinz.sendMessage(from, son, audio, { quoted: msg })              
                 limitAdd(sender, limit)
                 }
