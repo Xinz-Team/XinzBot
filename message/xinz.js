@@ -31,7 +31,7 @@ const Exif = require('../lib/exif')
 const exif = new Exif()
 
 const { color, bgcolor } = require("../lib/color");
-const { getBuffer, getRandom, getGroupAdmins, runtime } = require("../lib/myfunc");
+const { getBuffer, getRandom, getGroupAdmins, runtime, sleep } = require("../lib/myfunc");
 const { isLimit, limitAdd, getLimit, giveLimit, addBalance, kurangBalance, getBalance, isGame, gameAdd, givegame, cekGLimit } = require("../lib/limit");
 const _prem = require("../lib/premium");
 const afk = require("../lib/afk");
@@ -2013,6 +2013,17 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                     textImg(`Berhasil mengubah prefix ke ${q}`)
                 }
                 break
+            case prefix+'setthumb':
+                if (!isOwner) return reply(mess.OnlyOwner)
+                    if (!isQuotedImage) return reply('Reply imagenya blokk!')
+                    const messimagethumb = JSON.parse(JSON.stringify(msg).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
+                    const downiamgethumb = await xinz.downloadMediaMessage(messimagethumb)
+                    fs.unlinkSync(`${setting.pathImg}`)
+                    await sleep(2000)
+                    fs.writeFileSync(`${setting.pathImg}`, downiamgethumb)
+                    reply('Succes')
+                    break
+                    
             case prefix+'bc':
                 if (!isOwner) return reply(mess.OnlyOwner)
                 if (args.length < 2) return reply(`Masukkan text`)

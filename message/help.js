@@ -88,6 +88,7 @@ exports.ownerMenu = (prefix, ownerName) => {
 ├≽ *${prefix}exif*
 ├≽ *${prefix}bc*
 ├≽ *${prefix}setprefix*
+├≽ *${prefix}setthumb*
 ├≽ *${prefix}clearall*
 ├≽ *${prefix}>*
 ├≽ *${prefix}$*
