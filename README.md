@@ -57,7 +57,7 @@ node main
 ## For VPS
 ```bash
 apt install nodejs git ffmpeg libwebp imagemagick
-git clone https://github.com/NilaBot/XinzBot.git
+git clone https://github.com/DHANZSBOT/XinzBot.git
 cd XinzBot
 npm install
 node main
