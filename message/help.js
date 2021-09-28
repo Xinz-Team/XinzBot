@@ -1,5 +1,5 @@
 exports.menu = (prefix, i) => {
-    return `*INI WM AQULZZ*
+    return `*INI WM REZZ*
 `
 }
 
@@ -7,13 +7,13 @@ exports.newMenu = (ucapan, ownerName, botName, prefix, pendaftar, runtime, pushn
     return `${ucapan.data.result} ${pushname}
 ╒═══ 《 *${botName}* 》 ═══
 ├────────────────────
-├≽ *Creator : ${ownerName}*
+├≽ *Creator : ${REZZ-BOTZ}*
 ├≽ *Lib : Baileys V.3.5.1*
 ├≽ *Prefix : 「 ${prefix} 」*
 ├≽ *Total Fitur : 200+*
-├≽ *Total Pengguna : ${pendaftar.length}*
-├≽ *Tanggal : ${tanggal}*
-├≽ *Pukul : ${jam}*
+├≽ *Total Pengguna : ${257}*
+├≽ *Tanggal : ${28}*
+├≽ *Pukul : ${16.04}*
 ├≽ *Runtime Bot*
 ├≽ *${runtime}*
 ├────────────────────
@@ -69,7 +69,7 @@ exports.stickerMenu = (prefix, ownerName) => {
 ├≽ *${prefix}tovideo*
 ├≽ *${prefix}attp*
 ├─────────────────────
-╘═══ 《 *By ${ownerName}* 》 ═══`
+╘═══ 《 *By ${REZZ-BOTZ}* 》 ═══`
 }
 
 exports.ownerMenu = (prefix, ownerName) => {
@@ -93,10 +93,10 @@ exports.ownerMenu = (prefix, ownerName) => {
 ├≽ *${prefix}>*
 ├≽ *${prefix}$*
 ├─────────────────────
-╘═══ 《 *By ${ownerName}* 》 ═══`
+╘═══ 《 *By ${REZZ-BOTZ}* 》 ═══`
 }
 
-exports.groupMenu = (prefix, ownerName) => {
+exports.groupMenu = (prefix, REZZ-BOTZ) => {
     return `╒═══ 《 *GROUP MENU* 》 ═══
 ├────────────────────
 ├≽ *${prefix}afk*
@@ -120,10 +120,10 @@ exports.groupMenu = (prefix, ownerName) => {
 ├≽ *${prefix}mute*
 ├≽ *${prefix}unmute*
 ├─────────────────────
-╘═══ 《 *By ${ownerName}* 》 ═══`
+╘═══ 《 *By ${REZZ-BOTZ}* 》 ═══`
 }
 
-exports.sistemMenu = (prefix, ownerName) => {
+exports.sistemMenu = (prefix, REZZ) => {
     return `╒═══ 《 *SISTEM MENU* 》 ═══
 ├────────────────────
 ├≽ *${prefix}antilink*
@@ -132,7 +132,7 @@ exports.sistemMenu = (prefix, ownerName) => {
 ├≽ *${prefix}welcome*
 ├≽ *${prefix}left*
 ├─────────────────────
-╘═══ 《 *By ${ownerName}* 》 ═══`
+╘═══ 《 *By ${REZZ}* 》 ═══`
 }
 
 exports.gabutMenu = (prefix, ownerName) => {
@@ -148,7 +148,7 @@ exports.gabutMenu = (prefix, ownerName) => {
 ├≽ *${prefix}truth*
 ├≽ *${prefix}dare*
 ├─────────────────────
-╘═══ 《 *By ${ownerName}* 》 ═══`
+╘═══ 《 *By ${REZZ-BOTZ}* 》 ═══`
 }
 
 exports.gameMenu = (prefix, ownerName) => {
