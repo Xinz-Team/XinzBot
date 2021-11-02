@@ -2050,6 +2050,13 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
                 }
                 break
 //------------------< G R U P >-------------------
+            case prefix+'revoke':
+           if (!isGroup) return reply(mess.OnlyGrup)
+           if (!isGroupAdmins && !isOwner) return reply(mess.GrupAdmin)
+           if (!isBotGroupAdmins) return reply(mess.BotAdmin)
+                xinz.revokeInvite(from)
+               .then((res) => reply('Link group berhasil direset!'))
+              break
             case prefix+'delete':
 			case prefix+'del':
 			case prefix+'d':
