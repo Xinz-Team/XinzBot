@@ -7,7 +7,7 @@ exports.newMenu = (ucapan, ownerName, botName, prefix, pendaftar, runtime, pushn
     return `${ucapan.data.result} ${pushname}
 ╒═══ 《 *${botName}* 》 ═══
 ├────────────────────
-├≽ *Creator : ${ownerName}*
+├≽ *Creator : ${ownerName}*✓
 ├≽ *Lib : Baileys V.3.5.1*
 ├≽ *Prefix : 「 ${prefix} 」*
 ├≽ *Total Fitur : 200+*
