@@ -1,24 +1,24 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/Xinz-Team/XinzBot/main/media/Itsuki.jpg" alt="XINZ BOT" width="128" height="128"/>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/6Yyymdn/images-5.jpg" alt="images-5" border="0" /></a>
 </p>
 <p align="center">
-<a href="#"><img title="XINZ BOT" src="https://img.shields.io/badge/XINZ BOT-green?colorA=%23ff0000&colorB=%23017e40&style=for-the-badge"></a>
+<a href="#"><img title="Zero Two" src="https://img.shields.io/badge/Zero Two-green?colorA=%23ff0000&colorB=%23017e40&style=for-the-badge"></a>
 </p>
 <p align="center">
-<a href="https://github.com/zennn08"><img title="Author" src="https://img.shields.io/badge/Author-zennn08-red.svg?style=for-the-badge&logo=github"></a>
+<a href="https://github.com/ToshiroHitsugaya223"><img title="Author" src="https://img.shields.io/badge/Author-Toshiro-red.svg?style=for-the-badge&logo=github"></a>
 </p>
 <p align="center">
-<a href="https://github.com/zennn08/followers"><img title="Followers" src="https://img.shields.io/github/followers/zennn08?color=blue&style=flat-square"></a>
-<a href="https://github.com/zennn08/megumikato2/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Xinz-Team/XinzBot?color=red&style=flat-square"></a>
-<a href="https://github.com/zennn08/megumikato2/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Xinz-Team/XinzBot?color=red&style=flat-square"></a>
-<a href="https://github.com/zennn08/megumikato2/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Xinz-Team/XinzBot?label=Watchers&color=blue&style=flat-square"></a>
+<a href="https://github.com/ToshiroHitsugaya223/followers"><img title="Followers" src="https://img.shields.io/github/followers/Toshiro?color=blue&style=flat-square"></a>
+<a href="https://github.com/ToshiroHitsugaya223/megumikato2/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Xinz-Team/XinzBot?color=red&style=flat-square"></a>
+<a href="https://github.com/ToshiroHitsugaya223/megumikato2/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Xinz-Team/XinzBot?color=red&style=flat-square"></a>
+<a href="https://github.com/ToshiroHitsugaya223/megumikato2/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Xinz-Team/XinzBot?label=Watchers&color=blue&style=flat-square"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Xinz-Team/XinzBot#requirements">Requirements</a> •
-  <a href="https://github.com/Xinz-Team/XinzBot#instalasi">Installation</a> •
-  <a href="https://github.com/Xinz-Team/XinzBot#features">Features</a> •
-  <a href="https://github.com/Xinz-Team/XinzBot#thanks-to">Thanks to</a>
+  <a href="https://github.com/ToshieoHitsugaya223/XinzBot#requirements">Requirements</a> •
+  <a href="https://github.com/ToshieoHitsugaya223/XinzBot#instalasi">Installation</a> •
+  <a href="https://github.com/ToshiroHitsugaya223/XinzBot#features">Features</a> •
+  <a href="https://github.com/ToshiroHisugaya223/XinzBot#thanks-to">Thanks to</a>
 </p>
 </div>
 
@@ -38,8 +38,8 @@
 # Instalasi
 ## For Windows
 ```bash
-git clone https://github.com/Xinz-Team/XinzBot.git
-cd XinzBot
+git clone https://github.com/ToshieoHitsugaya223/Zero-Two.git
+cd Zero-Two
 npm install
 node main
 ```
@@ -48,8 +48,8 @@ node main
 termux-setup-storage
 apt update && apt upgrade
 pkg install nodejs git ffmpeg libwebp imagemagick
-git clone https://github.com/Xinz-Team/XinzBot.git
-cd XinzBot
+git clone https://github.com/ToshiroHitsugaya223/Zero-Two.git
+cd Zero-Two
 npm install
 node main
 ```
@@ -57,8 +57,8 @@ node main
 ## For VPS
 ```bash
 apt install nodejs git ffmpeg libwebp imagemagick
-git clone https://github.com/Xinz-Team/XinzBot.git
-cd XinzBot
+git clone https://github.com/ToshiroHisugaya223/Zero-Two.git
+cd Zero-Two
 npm install
 node main
 ```
@@ -116,7 +116,7 @@ webpmux -version
 * [`Baileys`](https://github.com/adiwajshing/Baileys)
 * [`Xinz-Team`](https://github.com/Xinz-Team)
 * [`Nurutomo`](https://github.com/Nurutomo)
-* [`MhankBarBar`](https://github.com/MhankBarBar)
+* [`Toshiro-Hitsugaya`](https://github.com/ToshiroHitsugaya223)
 * [`MRHRTZ`](https://github.com/MRHRTZ)
 * [`Mamet`](https://github.com/mamet8/)
 * [`SlavyanDesu`](https://github.com/SlavyanDesu)

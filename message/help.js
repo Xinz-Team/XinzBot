@@ -1,5 +1,5 @@
 exports.menu = (prefix, i) => {
-    return `*INI WM AQULZZ*
+    return `*TOSHIRO HITSUGAYA*
 `
 }
 
@@ -7,12 +7,13 @@ exports.newMenu = (ucapan, ownerName, botName, prefix, pendaftar, runtime, pushn
     return `${ucapan.data.result} ${pushname}
 ╒═══ 《 *${botName}* 》 ═══
 ├────────────────────
+|-≽*(❤️ω❤️)Konnichiwa Darling*
 ├≽ *Creator : ${ownerName}*
 ├≽ *Lib : Baileys V.3.5.1*
 ├≽ *Prefix : 「 ${prefix} 」*
 ├≽ *Total Fitur : 200+*
 ├≽ *Total Pengguna : ${pendaftar.length}*
-├≽ *Tanggal : ${tanggal}*
+├≽ *Date : ${tanggal}*
 ├≽ *Pukul : ${jam}*
 ├≽ *Runtime Bot*
 ├≽ *${runtime}*
@@ -46,14 +47,14 @@ exports.newMenu = (ucapan, ownerName, botName, prefix, pendaftar, runtime, pushn
 ├────────────────────
 ╞═══ 《 *THANKS TO* 》 ═══
 ├────────────────────
-├≽ *Xinz-Team*
-├≽ *Aqulzz*
-├≽ *Nafizz*
-├≽ *Y-DhyZx*
-├≽ *Ramlan ID*
-├≽ *X-MrG3P5*
-├≽ *Nanda*
-├≽ *Juwen*
+├≽ *Toshiro*
+├≽ *Injector*
+├≽ *Chey*
+├≽ *Rahul*
+├≽ *Sasuke*
+├≽ *senku*
+├≽ *Toxic*
+├≽ *Jack*
 ├≽ *Adiwajshing/Baileys*
 ╘═══ 《 *By ${ownerName}* 》 ═══`
 }

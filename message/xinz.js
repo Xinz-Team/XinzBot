@@ -215,14 +215,14 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
         // Anti link
         if (isGroup && isAntiLink && !isOwner && !isGroupAdmins && isBotGroupAdmins){
             if (chats.match(/(https:\/\/chat.whatsapp.com)/gi)) {
-                reply(`*「 GROUP LINK DETECTOR 」*\n\nSepertinya kamu mengirimkan link grup, maaf kamu akan di kick`)
+                reply(`*「 GROUP LINK DETECTOR 」*\n\nMadarchod Group ka link send karega Ab Tu Gaya Ja nikal Jaa koi Auqat nahi hai tera iss group pe Hatt gawar`)
                 xinz.groupRemove(from, [sender])
             }
         }
         // Anti wame
         if (isGroup && isAntiWame && !isOwner && !isGroupAdmins && isBotGroupAdmins){
             if (chats.match(/(wa.me\/)/gi)) {
-                reply(`*「 NOMOR LINK DETECTOR 」*\n\nSepertinya kamu mengirimkan link nomor, maaf kamu akan di kick`)
+                reply(`*「 NOMOR LINK DETECTOR 」*\n\nHatt na madarchod nikal`)
                 xinz.groupRemove(from, [sender])
             }
         }
@@ -232,7 +232,7 @@ module.exports = async(xinz, msg, blocked, baterai, _afk, welcome, left) => {
                 if (chats.toLowerCase().includes(kasar)){
                     if (isCountKasar(sender, senbadword)){
                         if (!isBotGroupAdmins) return reply(`Kamu beruntung karena bot bukan admin`)
-                        reply(`*「 ANTI BADWORD 」*\n\nSepertinya kamu sudah berkata kasar lebih dari 5x, maaf kamu akan di kick`)
+                        reply(`*「 ANTI BADWORD 」*\n\nGali mat de nikal jayga`)
                         xinz.groupRemove(from, [sender])
                         delCountKasar(sender, senbadword)
                     } else {
