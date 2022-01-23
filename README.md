@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/6J4wpZX/5f03ee4d0ca9c9630387963701a74837-1.gif" alt="5f03ee4d0ca9c9630387963701a74837-1" border="0" /></a>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/3kfb2wd/Itsuki.jpg" alt="Itsuki" border="0" /></a>
 </p>
 <p align="center">
 <a href="#"><img title="Zero Two" src="https://img.shields.io/badge/Zero Two-green?colorA=%23ff0000&colorB=%23017e40&style=for-the-badge"></a>
