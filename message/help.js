@@ -52,7 +52,7 @@ exports.newMenu = (ucapan, ownerName, botName, prefix, pendaftar, runtime, pushn
 ├≽ *Chey*
 ├≽ *Rahul*
 ├≽ *Sasuke*
-├≽ *Amit*
+├≽ *senku*
 ├≽ *Toxic*
 ├≽ *Jack*
 ├≽ *Adiwajshing/Baileys*
